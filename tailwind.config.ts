@@ -62,6 +62,14 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      backgroundImage: {
+        'hero-gradient': 'linear-gradient(135deg, hsl(236 72% 79%), hsl(249 77% 85%))',
+        'tech-gradient': 'linear-gradient(90deg, hsl(236 72% 79%), hsl(265 89% 78%))',
+      },
+      boxShadow: {
+        'card': '0 4px 20px -4px hsl(236 72% 79% / 0.1)',
+        'glow': '0 0 30px hsl(236 72% 79% / 0.3)',
+      },
       keyframes: {
         "accordion-down": {
           from: {
