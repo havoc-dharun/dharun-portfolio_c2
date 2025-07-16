@@ -83,8 +83,8 @@ export default function About() {
                   <img
                     src="/lovable-uploads/e5a46df2-defc-4f13-8d8e-922e14246791.png"
                     alt="Dharun S"
-                    className="relative z-10 w-full h-full object-cover rounded-full shadow-lg"
-                    style={{ objectPosition: 'center 95%', transform: 'scale(1)' }}
+                    className="relative z-10 object-cover rounded-full shadow-lg"
+                    style={{ objectPosition: 'center 85%', objectFit: 'cover', width: '120%', height: '120%', left: '-10%', top: '-10%' }}
                   />
                 </div>
                 <h2 className="text-2xl font-bold mb-2">Dharun S</h2>
