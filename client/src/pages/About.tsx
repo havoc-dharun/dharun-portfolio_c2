@@ -81,7 +81,7 @@ export default function About() {
                 <div className="w-40 h-40 mx-auto mb-6 relative">
                   <div className="absolute inset-0 bg-hero-gradient rounded-full blur-xl opacity-30" />
                   <img
-                    src="/lovable-uploads/e5a46df2-defc-4f13-8d8e-922e14246791.png"
+                    src="/attached_assets/IMG_2357_1752689567265.jpeg"
                     alt="Dharun S"
                     className="relative z-10 w-full h-full object-cover rounded-full shadow-lg"
                   />
