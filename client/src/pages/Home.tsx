@@ -125,7 +125,7 @@ export default function Home() {
                   src="/lovable-uploads/e5a46df2-defc-4f13-8d8e-922e14246791.png"
                   alt="Dharun S"
                   className="relative z-10 w-80 h-80 md:w-96 md:h-96 object-cover rounded-full shadow-glow"
-                  style={{ objectPosition: 'center 85%' }}
+                  style={{ objectPosition: '60% 85%' }}
                 />
               </div>
             </motion.div>
