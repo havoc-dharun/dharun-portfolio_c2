@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'wouter';
 import { 
   Target, Bot, Code, BarChart, Heart
 } from 'lucide-react';
