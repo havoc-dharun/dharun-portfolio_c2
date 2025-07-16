@@ -122,7 +122,7 @@ export default function Home() {
               <div className="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
                 <div className="absolute inset-0 bg-hero-gradient rounded-full blur-2xl opacity-30 animate-pulse" />
                 <img
-                  src="/attached_assets/IMG_2357_1752689567265.jpeg"
+                  src="/lovable-uploads/e5a46df2-defc-4f13-8d8e-922e14246791.png"
                   alt="Dharun S"
                   className="relative z-10 w-80 h-80 md:w-96 md:h-96 object-cover object-center rounded-full shadow-glow"
                   style={{ objectPosition: 'center 20%' }}
