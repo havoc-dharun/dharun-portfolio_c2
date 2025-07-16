@@ -124,15 +124,8 @@ export default function Home() {
                 <img
                   src="/lovable-uploads/e5a46df2-defc-4f13-8d8e-922e14246791.png"
                   alt="Dharun S"
-                  className="relative z-10 object-cover rounded-full shadow-glow"
-                  style={{ 
-                    objectPosition: 'center 90%',
-                    width: '125%',
-                    height: '125%',
-                    left: '-12.5%',
-                    top: '-12.5%',
-                    clipPath: 'circle(40% at 50% 50%)'
-                  }}
+                  className="relative z-10 w-80 h-80 md:w-96 md:h-96 object-cover rounded-full shadow-glow"
+                  style={{ objectPosition: 'center 85%' }}
                 />
               </div>
             </motion.div>
