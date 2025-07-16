@@ -85,7 +85,7 @@ export default function About() {
                     alt="Dharun S"
                     className="relative z-10 object-cover rounded-full shadow-lg"
                     style={{ 
-                      objectPosition: 'center 85%',
+                      objectPosition: 'center 90%',
                       width: '125%',
                       height: '125%',
                       left: '-12.5%',
