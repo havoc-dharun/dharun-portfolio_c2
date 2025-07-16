@@ -14,7 +14,7 @@ export default function Resume() {
       title: 'Business Analytics & Marketing',
       icon: BarChart,
       description: 'Focused on data analysis, business intelligence, and marketing analytics',
-      image: '/lovable-uploads/6d0569c8-5863-4491-870b-25731be1f7e7.png',
+      image: null,
       downloadUrl: '#',
     },
     {
@@ -22,7 +22,7 @@ export default function Resume() {
       title: 'MBA - Marketing',
       icon: FileText,
       description: 'Emphasizing marketing strategy, digital marketing, and business development',
-      image: '/lovable-uploads/99fce85c-ea80-405a-9e60-ba10192faa2a.png',
+      image: null,
       downloadUrl: '#',
     },
     {
@@ -30,7 +30,7 @@ export default function Resume() {
       title: 'HR & Business Analytics',
       icon: Users,
       description: 'Combining human resources expertise with analytical capabilities',
-      image: '/lovable-uploads/fa5a9da3-17db-45ef-8d6c-ac6ae3f22a8b.png',
+      image: null,
       downloadUrl: '#',
     },
   ];
@@ -139,14 +139,17 @@ export default function Resume() {
                         transition={{ delay: 0.3 }}
                         className="relative"
                       >
-                        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                          <img
-                            src={version.image}
-                            alt={`${version.title} Resume`}
-                            className="w-full h-auto"
-                          />
+                        <div className="bg-white dark:bg-gray-100 rounded-lg shadow-lg overflow-hidden h-96 flex items-center justify-center">
+                          <div className="text-center p-8">
+                            <version.icon className="h-16 w-16 text-primary mx-auto mb-4" />
+                            <h3 className="text-xl font-semibold text-gray-800 mb-2">{version.title}</h3>
+                            <p className="text-gray-600 text-sm">{version.description}</p>
+                            <div className="mt-4 text-xs text-gray-500">
+                              Resume Preview
+                            </div>
+                          </div>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-lg" />
                       </motion.div>
 
                       {/* Resume Highlights */}
