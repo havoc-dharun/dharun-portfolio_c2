@@ -692,8 +692,217 @@ const tools = {
       'Automated data processing with VBA'
     ]
   },
+  'matplotlib': {
+    title: 'Matplotlib',
+    description: 'Comprehensive plotting library for Python, enabling creation of static, animated, and interactive visualizations for data analysis and scientific computing.',
+    category: 'Business Analytics',
+    features: ['2D/3D Plotting', 'Publication-Quality Figures', 'Interactive Plots', 'Animation Support', 'Customizable Styling', 'Multiple Output Formats'],
+    website: 'https://matplotlib.org',
+    logo: 'https://matplotlib.org/stable/_static/logo2_compressed.svg',
+    proficiency: 85,
+    experience: '2+ years',
+    projects: 18,
+    description_long: 'Matplotlib is my primary tool for creating data visualizations in Python. I use it extensively for exploratory data analysis, creating publication-ready charts, and building custom interactive dashboards.',
+    use_cases: [
+      'Statistical data visualization and analysis',
+      'Scientific plotting and research presentations',
+      'Business intelligence dashboard creation',
+      'Time series analysis and forecasting charts',
+      'Custom visualization components for web applications'
+    ]
+  },
+  'spss': {
+    title: 'SPSS',
+    description: 'Statistical Package for Social Sciences - powerful statistical analysis software for complex data analysis, predictive analytics, and decision-making.',
+    category: 'Business Analytics',
+    features: ['Statistical Analysis', 'Predictive Modeling', 'Data Mining', 'Survey Research', 'Advanced Analytics', 'Report Generation'],
+    website: 'https://www.ibm.com/spss',
+    logo: 'https://cdn.worldvectorlogo.com/logos/spss.svg',
+    proficiency: 80,
+    experience: '2+ years',
+    projects: 12,
+    description_long: 'SPSS is my go-to tool for advanced statistical analysis and research. I leverage its powerful capabilities for hypothesis testing, regression analysis, and predictive modeling in business contexts.',
+    use_cases: [
+      'Market research and consumer behavior analysis',
+      'Statistical hypothesis testing and validation',
+      'Predictive modeling for business forecasting',
+      'Survey data analysis and reporting',
+      'Academic research and statistical consulting'
+    ]
+  },
+  'r': {
+    title: 'R Programming',
+    description: 'Powerful programming language and environment for statistical computing, data analysis, and graphics with extensive package ecosystem.',
+    category: 'Business Analytics',
+    features: ['Statistical Computing', 'Data Manipulation', 'Advanced Graphics', 'Package Ecosystem', 'Reproducible Research', 'Machine Learning'],
+    website: 'https://www.r-project.org',
+    logo: 'https://cdn.worldvectorlogo.com/logos/r-lang.svg',
+    proficiency: 75,
+    experience: '1.5+ years',
+    projects: 10,
+    description_long: 'R is my preferred language for statistical analysis and data science projects. I use it for complex data manipulation, statistical modeling, and creating sophisticated visualizations.',
+    use_cases: [
+      'Statistical modeling and hypothesis testing',
+      'Data cleaning and transformation workflows',
+      'Advanced data visualization with ggplot2',
+      'Time series analysis and forecasting',
+      'Machine learning model development'
+    ]
+  },
+  'seaborn': {
+    title: 'Seaborn',
+    description: 'Statistical data visualization library built on matplotlib, providing beautiful and informative statistical graphics with high-level interface.',
+    category: 'Business Analytics',
+    features: ['Statistical Plotting', 'Beautiful Defaults', 'Dataset-Oriented API', 'Integrated Statistical Functions', 'Flexible Styling', 'Multi-plot Grids'],
+    website: 'https://seaborn.pydata.org',
+    logo: 'https://seaborn.pydata.org/_static/logo-wide-lightbg.svg',
+    proficiency: 80,
+    experience: '2+ years',
+    projects: 15,
+    description_long: 'Seaborn enhances my data visualization capabilities with its statistical plotting functions. I use it to create informative and aesthetically pleasing statistical graphics quickly.',
+    use_cases: [
+      'Exploratory data analysis and statistical summaries',
+      'Correlation analysis and heatmap visualization',
+      'Distribution analysis and comparison plots',
+      'Regression analysis visualization',
+      'Multi-dimensional data exploration'
+    ]
+  },
+  'dashboarding': {
+    title: 'Dashboarding',
+    description: 'Strategic approach to creating interactive business intelligence dashboards that transform complex data into actionable insights for decision-making.',
+    category: 'Business Analytics',
+    features: ['Interactive Visualization', 'Real-time Data', 'KPI Tracking', 'Drill-down Analysis', 'Mobile Responsiveness', 'Automated Reporting'],
+    website: 'https://grafana.com',
+    logo: 'https://cdn.worldvectorlogo.com/logos/grafana.svg',
+    proficiency: 85,
+    experience: '2+ years',
+    projects: 20,
+    description_long: 'I specialize in creating comprehensive business dashboards that provide stakeholders with real-time insights. My approach focuses on user experience and actionable data presentation.',
+    use_cases: [
+      'Executive dashboard development and KPI monitoring',
+      'Sales performance tracking and forecasting',
+      'Marketing campaign effectiveness analysis',
+      'Operational metrics and process optimization',
+      'Financial reporting and budget variance analysis'
+    ]
+  },
+  'pandas': {
+    title: 'Pandas',
+    description: 'Powerful data manipulation and analysis library for Python, providing data structures and operations for manipulating numerical tables and time series.',
+    category: 'Business Analytics',
+    features: ['Data Manipulation', 'Time Series Analysis', 'Data Cleaning', 'Merging & Joining', 'Grouping Operations', 'File I/O'],
+    website: 'https://pandas.pydata.org',
+    logo: 'https://cdn.worldvectorlogo.com/logos/pandas.svg',
+    proficiency: 90,
+    experience: '2+ years',
+    projects: 25,
+    description_long: 'Pandas is fundamental to my data analysis workflow. I use it extensively for data cleaning, transformation, and analysis tasks, making it the backbone of my Python-based analytics projects.',
+    use_cases: [
+      'Data cleaning and preprocessing pipelines',
+      'Time series analysis and financial modeling',
+      'Business intelligence and reporting automation',
+      'ETL processes and data integration',
+      'Statistical analysis and feature engineering'
+    ]
+  },
+  'data-cleaning': {
+    title: 'SQL Data Cleaning',
+    description: 'Systematic approach to identifying, correcting, and removing inaccurate records from databases using SQL queries and data validation techniques.',
+    category: 'Business Analytics',
+    features: ['Data Validation', 'Duplicate Removal', 'Missing Value Handling', 'Data Standardization', 'Quality Assessment', 'Automated Cleaning'],
+    website: 'https://www.postgresql.org',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png',
+    proficiency: 85,
+    experience: '2+ years',
+    projects: 22,
+    description_long: 'SQL data cleaning is essential to my analytics workflow. I develop robust data cleaning pipelines using SQL to ensure data quality and integrity for accurate business insights.',
+    use_cases: [
+      'Customer data deduplication and standardization',
+      'Financial data validation and correction',
+      'Sales data cleansing for accurate reporting',
+      'Database maintenance and optimization',
+      'ETL pipeline data quality assurance'
+    ]
+  },
+  'supabase': {
+    title: 'Supabase',
+    description: 'Open-source Firebase alternative providing instant APIs, real-time subscriptions, authentication, and storage with PostgreSQL foundation.',
+    category: 'Web Development',
+    features: ['PostgreSQL Database', 'Real-time APIs', 'Authentication', 'File Storage', 'Edge Functions', 'Dashboard Management'],
+    website: 'https://supabase.com',
+    logo: 'https://supabase.com/brand-assets/supabase-logo-icon.png',
+    proficiency: 75,
+    experience: '1+ years',
+    projects: 8,
+    description_long: 'Supabase provides me with a powerful backend-as-a-service solution. I use it to rapidly build applications with robust database functionality, authentication, and real-time capabilities.',
+    use_cases: [
+      'Full-stack web application development',
+      'Real-time collaborative applications',
+      'User authentication and authorization',
+      'File storage and management systems',
+      'API development and database management'
+    ]
+  },
+  'make': {
+    title: 'Make.com',
+    description: 'Visual automation platform for connecting apps and services, creating powerful workflows without coding through intuitive drag-and-drop interface.',
+    category: 'AI Agents & Automation',
+    features: ['Visual Workflow Builder', 'App Integrations', 'Real-time Processing', 'Error Handling', 'Scheduling', 'Webhook Support'],
+    website: 'https://www.make.com',
+    logo: 'https://www.make.com/en/brand-assets/make-logo.svg',
+    proficiency: 80,
+    experience: '1.5+ years',
+    projects: 15,
+    description_long: 'Make.com enables me to create sophisticated automation workflows without extensive coding. I use it to integrate various business tools and automate repetitive processes efficiently.',
+    use_cases: [
+      'Marketing automation and lead nurturing',
+      'Data synchronization between platforms',
+      'E-commerce order processing automation',
+      'Social media content scheduling',
+      'Customer support workflow automation'
+    ]
+  },
+  'n8n': {
+    title: 'n8n',
+    description: 'Free and open-source workflow automation tool for connecting different services and automating tasks with a powerful visual editor.',
+    category: 'AI Agents & Automation',
+    features: ['Open Source', 'Self-hosted Options', 'Custom Code Execution', 'Webhook Support', 'Conditional Logic', 'Error Handling'],
+    website: 'https://n8n.io',
+    logo: 'https://n8n.io/favicon.svg',
+    proficiency: 75,
+    experience: '1+ years',
+    projects: 12,
+    description_long: 'n8n provides me with flexible, open-source automation capabilities. I use it for complex workflow automation where I need more control and customization than traditional automation platforms offer.',
+    use_cases: [
+      'Custom business process automation',
+      'Data pipeline creation and management',
+      'API integration and workflow orchestration',
+      'Monitoring and alert systems',
+      'Self-hosted automation solutions'
+    ]
+  },
+  'bolt': {
+    title: 'Bolt',
+    description: 'AI-powered development environment for building full-stack applications with intelligent code assistance and rapid deployment.',
+    category: 'Vibe Coding',
+    features: ['Full-Stack Development', 'AI Code Assistance', 'Rapid Deployment', 'Real-time Collaboration', 'Integrated Tools', 'Cloud Integration'],
+    website: 'https://bolt.new',
+    logo: 'https://bolt.new/logo.svg',
+    proficiency: 75,
+    experience: '6+ months',
+    projects: 8,
+    description_long: 'Bolt enables rapid full-stack development with AI assistance. I use it to quickly build and deploy applications with intelligent code suggestions and integrated development tools.',
+    use_cases: [
+      'Full-stack application development',
+      'Rapid prototyping and testing',
+      'AI-assisted debugging and optimization',
+      'Quick deployment and hosting',
+      'Collaborative development workflows'
+    ]
+  },
   'lovable': {
-    title: 'Lovable (V0)',
+    title: 'Lovable AI + vO',
     description: 'AI-powered development platform for rapid prototyping, application building, and collaborative development with intelligent code generation.',
     category: 'Vibe Coding',
     features: ['AI-Powered Development', 'Rapid Prototyping', 'Code Generation', 'Visual Development', 'Collaboration Tools', 'Deployment Integration'],

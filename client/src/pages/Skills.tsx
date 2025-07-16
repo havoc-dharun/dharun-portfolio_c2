@@ -93,7 +93,7 @@ export default function Skills() {
         { 
           name: 'n8n', 
           route: 'n8n',
-          logo: 'https://upload.wikimedia.org/wikipedia/commons/5/50/N8n_Logo.svg'
+          logo: 'https://n8n.io/favicon.svg'
         },
         { 
           name: 'Zapier', 
@@ -103,7 +103,7 @@ export default function Skills() {
         { 
           name: 'Make.com', 
           route: 'make',
-          logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Make_Logo.svg'
+          logo: 'https://www.make.com/en/brand-assets/make-logo.svg'
         },
         { 
           name: 'Claude', 
@@ -185,7 +185,7 @@ export default function Skills() {
         { 
           name: 'Supabase', 
           route: 'supabase',
-          logo: 'https://cdn.worldvectorlogo.com/logos/supabase-logo.svg'
+          logo: 'https://supabase.com/brand-assets/supabase-logo-icon.png'
         },
         { 
           name: 'Git', 
@@ -252,7 +252,7 @@ export default function Skills() {
         { 
           name: 'Matplotlib', 
           route: 'matplotlib',
-          logo: 'https://matplotlib.org/_static/images/logo2.svg'
+          logo: 'https://matplotlib.org/stable/_static/logo2_compressed.svg'
         },
         { 
           name: 'Seaborn', 
@@ -270,9 +270,9 @@ export default function Skills() {
           logo: 'https://cdn.worldvectorlogo.com/logos/tensorflow-2.svg'
         },
         { 
-          name: 'Data Cleaning', 
+          name: 'SQL Data Cleaning', 
           route: 'data-cleaning',
-          logo: 'https://cdn.worldvectorlogo.com/logos/alteryx.svg'
+          logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png'
         },
       ],
     },
@@ -282,14 +282,14 @@ export default function Skills() {
       color: 'from-pink-500 to-rose-500',
       skills: [
         { 
-          name: 'Lovable (V0)', 
+          name: 'Lovable AI + vO', 
           route: 'lovable',
           logo: 'https://lovable.dev/favicon.ico'
         },
         { 
           name: 'Bolt', 
           route: 'bolt',
-          logo: 'https://bolt.new/favicon.ico'
+          logo: 'https://bolt.new/logo.svg'
         },
         { 
           name: 'Claude', 
