@@ -18,3 +18,35 @@
     at <anonymous> (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/blitz.96435430.js:31:29397)
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2025-07-18T05:05:42.761Z] ----------------------------------------------------------------------
+[debug] [2025-07-18T05:05:42.764Z] Command:       /usr/local/bin/node /home/project/node_modules/.bin/firebase init hosting
+[debug] [2025-07-18T05:05:42.765Z] CLI Version:   14.11.0
+[debug] [2025-07-18T05:05:42.765Z] Platform:      linux
+[debug] [2025-07-18T05:05:42.765Z] Node Version:  v20.19.1
+[debug] [2025-07-18T05:05:42.766Z] Time:          Fri Jul 18 2025 10:35:42 GMT+0530 (India Standard Time)
+[debug] [2025-07-18T05:05:42.766Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-18T05:05:43.501Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-18T05:05:43.698Z] Error: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.
+    at GoogleAuth.getApplicationDefaultAsync (/home/project/node_modules/google-auth-library/build/src/auth/googleauth.js:287:15)
+    at async GoogleAuth._GoogleAuth_determineClient (/home/project/node_modules/google-auth-library/build/src/auth/googleauth.js:834:32)
+    at async GoogleAuth.getClient (/home/project/node_modules/google-auth-library/build/src/auth/googleauth.js:698:20)
+    at async GoogleAuth.getAccessToken (/home/project/node_modules/google-auth-library/build/src/auth/googleauth.js:722:24)
+    at async autoAuth (/home/project/node_modules/firebase-tools/lib/requireAuth.js:26:19)
+    at async Object.requireAuth (/home/project/node_modules/firebase-tools/lib/requireAuth.js:81:20)
+    at async eval (/home/project/node_modules/firebase-tools/lib/command.js:242:17)
+[error] 
+[error] Error: Failed to authenticate, have you run firebase login?
+[debug] [2025-07-18T05:05:43.716Z] Error: Unknown status code 530
+    at _0x3c20a8 (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/blitz.96435430.js:31:1001993)
+    at _0x50f252._readHeaders (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/blitz.96435430.js:31:1008379)
+    at _0x50f252.execute (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/blitz.96435430.js:31:1006351)
+    at Socket.socketOnData (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:3:6073)
+    at Socket.emit (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:30:11034)
+    at Socket.emit (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:29:5199)
+    at addChunk (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:230:3174)
+    at readableAddChunkPushByteMode (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:230:6158)
+    at Readable.push (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:230:6192)
+    at _0x1024d8.onStreamRead [as onread] (https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3.w-credentialless-staticblitz.com/builtins.97a3df4f.js:216:2625)
+[error] 
+[error] Error: An unexpected error has occurred.
