@@ -1,0 +1,10 @@
+[debug] [2025-07-18T05:05:27.403Z] ----------------------------------------------------------------------
+[debug] [2025-07-18T05:05:27.406Z] Command:       /usr/local/bin/node /home/project/node_modules/.bin/firebase login
+[debug] [2025-07-18T05:05:27.407Z] CLI Version:   14.11.0
+[debug] [2025-07-18T05:05:27.408Z] Platform:      linux
+[debug] [2025-07-18T05:05:27.408Z] Node Version:  v20.19.1
+[debug] [2025-07-18T05:05:27.409Z] Time:          Fri Jul 18 2025 10:35:27 GMT+0530 (India Standard Time)
+[debug] [2025-07-18T05:05:27.409Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-18T05:05:27.412Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  The Firebase CLI’s MCP server feature can optionally make use of Gemini in Firebase. Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
