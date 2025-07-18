@@ -18,7 +18,7 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 - **Icons**: Lucide React
 - **UI Components**: Shadcn/UI
 - **Build Tool**: Vite
-- **Hosting**: Firebase Hosting
+- **Hosting**: Netlify
 
 ## 📦 Installation
 
@@ -50,37 +50,66 @@ npm run dev
 npm run build:client
 ```
 
-### Firebase Deployment
+### Netlify Deployment
 
-1. **First-time setup** (if not already configured):
+#### Option 1: Drag & Drop Deployment (Easiest)
+
+1. **Build the project**:
 ```bash
-firebase login
-firebase init hosting
+npm run build:client
 ```
 
-2. **Deploy to Firebase**:
+2. **Deploy to Netlify**:
+   - Go to [netlify.com](https://netlify.com)
+   - Sign up/Login with GitHub
+   - Drag and drop the `dist/public` folder to Netlify
+   - Your site will be live instantly!
+
+#### Option 2: Git-based Deployment (Recommended)
+
+1. **Push your code to GitHub**
+2. **Connect to Netlify**:
+   - Go to [netlify.com](https://netlify.com)
+   - Click "New site from Git"
+   - Connect your GitHub repository
+   - Set build command: `npm run build:client`
+   - Set publish directory: `dist/public`
+   - Deploy!
+
+#### Option 3: Netlify CLI
+
+1. **Install Netlify CLI**:
 ```bash
-npm run firebase:deploy
+npm install -g netlify-cli
 ```
 
-3. **Local Firebase testing**:
+2. **Build and deploy**:
 ```bash
-npm run firebase:serve
+npm run build:client
+netlify deploy --prod --dir=dist/public
 ```
 
-## 🌐 Firebase Hosting Setup
+### Local Preview
+```bash
+npm run preview
+```
 
-The project is configured for Firebase Hosting with:
+## 🌐 Netlify Hosting Setup
+
+The project is configured for Netlify hosting with:
 - Static file serving from `dist/public`
-- SPA routing support
-- Optimized caching headers
-- Clean URLs enabled
+- SPA routing support with `_redirects`
+- Optimized caching headers via `netlify.toml`
+- Automatic builds from Git
+- Custom domain support
+- HTTPS enabled by default
 
-### Firebase Configuration
+### Netlify Configuration
 
-- **Project ID**: `dharun-portfolio`
+- **Site Name**: `dharun-s-portfolio` (will be available at `dharun-s-portfolio.netlify.app`)
 - **Public Directory**: `dist/public`
 - **Build Command**: `npm run build:client`
+- **Node Version**: 20
 
 ## 📁 Project Structure
 
@@ -105,7 +134,7 @@ The project is configured for Firebase Hosting with:
 
 ### Content
 - Update personal information in page components
-- Replace images in `client/public/lovable-uploads/`
+- Replace images in `client/public/lovable-uploads/` 
 - Modify project data in `client/src/pages/Projects.tsx`
 
 ## 📱 Responsive Design
@@ -125,6 +154,10 @@ The website is fully responsive with breakpoints:
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## 🚀 Live Demo
+
+Visit the live site: [dharun-s-portfolio.netlify.app](https://dharun-s-portfolio.netlify.app)
 
 ## 🤝 Contributing
 
