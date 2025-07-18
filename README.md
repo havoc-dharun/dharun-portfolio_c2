@@ -40,19 +40,75 @@ npm run dev
 
 ## 🔧 Build & Deploy
 
-### Local Development
+### Development
 ```bash
 npm run dev
 ```
 
-### Build for Production
+### Build
 ```bash
 npm run build:client
 ```
 
-### Netlify Deployment
+## 🚀 Netlify Deployment (Git Integration)
 
-#### Option 1: Drag & Drop Deployment (Easiest)
+### Step 1: Push to GitHub
+
+1. **Initialize Git repository** (if not already done):
+```bash
+git init
+git add .
+git commit -m "Initial commit: Dharun S Portfolio"
+```
+
+2. **Create GitHub repository**:
+   - Go to [github.com](https://github.com)
+   - Click "New repository"
+   - Name it `dharun-s-portfolio`
+   - Don't initialize with README (we already have one)
+   - Click "Create repository"
+
+3. **Push to GitHub**:
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/dharun-s-portfolio.git
+git branch -M main
+git push -u origin main
+```
+
+### Step 2: Connect to Netlify
+
+1. **Go to Netlify**:
+   - Go to [netlify.com](https://netlify.com)
+   - Sign up/Login with your GitHub account
+
+2. **Import your project**:
+   - Click "Add new site" → "Import an existing project"
+   - Choose "Deploy with GitHub"
+   - Authorize Netlify to access your repositories
+   - Select `dharun-s-portfolio` repository
+
+3. **Configure build settings**:
+   - **Site name**: `dharun-s-portfolio` (or leave blank for auto-generated)
+   - **Branch to deploy**: `main`
+   - **Build command**: `npm run build:client`
+   - **Publish directory**: `dist/public`
+   - **Node version**: `20` (set in Environment variables)
+
+4. **Deploy**:
+   - Click "Deploy site"
+   - Your site will be live at `https://dharun-s-portfolio.netlify.app`
+
+### Step 3: Automatic Deployments
+
+✨ **That's it!** Now every time you push to GitHub:
+1. Netlify automatically detects the changes
+2. Runs `npm run build:client`
+3. Deploys the updated site
+4. Your live site updates automatically!
+
+### Alternative Deployment Options
+
+#### Option 1: Drag & Drop (Quick Test)
 
 1. **Build the project**:
 ```bash
@@ -61,22 +117,10 @@ npm run build:client
 
 2. **Deploy to Netlify**:
    - Go to [netlify.com](https://netlify.com)
-   - Sign up/Login with GitHub
    - Drag and drop the `dist/public` folder to Netlify
    - Your site will be live instantly!
 
-#### Option 2: Git-based Deployment (Recommended)
-
-1. **Push your code to GitHub**
-2. **Connect to Netlify**:
-   - Go to [netlify.com](https://netlify.com)
-   - Click "New site from Git"
-   - Connect your GitHub repository
-   - Set build command: `npm run build:client`
-   - Set publish directory: `dist/public`
-   - Deploy!
-
-#### Option 3: Netlify CLI
+#### Option 3: Netlify CLI (Advanced)
 
 1. **Install Netlify CLI**:
 ```bash
@@ -89,22 +133,45 @@ npm run build:client
 netlify deploy --prod --dir=dist/public
 ```
 
-### Local Preview
+## 🔄 Development Workflow
+
+1. **Make changes** to your code
+2. **Test locally**:
+```bash
+npm run dev
+```
+3. **Commit and push**:
+```bash
+git add .
+git commit -m "Update: description of changes"
+git push
+```
+4. **Automatic deployment** - Netlify will automatically deploy your changes!
+
+### Local Preview of Production Build
 ```bash
 npm run preview
 ```
 
-## 🌐 Netlify Hosting Setup
+## 🌐 Live Site
 
-The project is configured for Netlify hosting with:
+Your portfolio will be available at:
+- **Primary URL**: `https://dharun-s-portfolio.netlify.app`
+- **Custom Domain**: You can add your own domain in Netlify settings
+
+## 🔧 Netlify Features
+
+Your project is configured with:
 - Static file serving from `dist/public`
 - SPA routing support with `_redirects`
 - Optimized caching headers via `netlify.toml`
 - Automatic builds from Git
 - Custom domain support
 - HTTPS enabled by default
+- Form handling for contact form
+- Deploy previews for pull requests
 
-### Netlify Configuration
+### Build Configuration
 
 - **Site Name**: `dharun-s-portfolio` (will be available at `dharun-s-portfolio.netlify.app`)
 - **Public Directory**: `dist/public`
