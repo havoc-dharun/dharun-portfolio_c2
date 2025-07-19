@@ -1,994 +1,1280 @@
-import { useParams } from 'wouter';
-import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Star, Users, Calendar, TrendingUp } from 'lucide-react';
+import { useParams, Link } from 'wouter';
+import { ArrowLeft, ExternalLink, Star, TrendingUp, Users, Zap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
-const tools = {
-  'google-ads': {
-    title: 'Google Ads',
-    description: 'Google\'s comprehensive advertising platform for creating, managing, and optimizing online advertising campaigns across search, display, and video networks.',
-    category: 'Marketing',
-    features: ['Campaign Management', 'Keyword Bidding & Optimization', 'Ad Creation & Testing', 'Performance Analytics', 'Audience Targeting', 'Conversion Tracking'],
-    website: 'https://ads.google.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/google-ads-1.svg',
-    proficiency: 90,
-    experience: '2+ years',
-    projects: 20,
-    description_long: 'Google Ads is central to my digital advertising strategy. I create and manage high-performing campaigns that drive qualified traffic and conversions. My expertise includes keyword research, ad copy optimization, bid management, and performance analysis.',
-    use_cases: [
-      'Search campaign optimization for lead generation',
-      'Display advertising for brand awareness',
-      'Shopping campaigns for e-commerce',
-      'Video advertising on YouTube',
-      'Conversion tracking and attribution modeling'
-    ]
-  },
-  'seo-sem': {
-    title: 'SEO/SEM',
-    description: 'Search Engine Optimization and Search Engine Marketing strategies for improving organic visibility and paid search performance.',
-    category: 'Marketing',
-    features: ['Keyword Research', 'On-Page Optimization', 'Technical SEO', 'Link Building', 'Content Strategy', 'Performance Tracking'],
-    website: 'https://developers.google.com/search',
-    logo: 'https://cdn.worldvectorlogo.com/logos/google-2015.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 18,
-    description_long: 'I specialize in both organic and paid search strategies, helping businesses improve their search visibility and drive qualified traffic through comprehensive SEO and SEM approaches.',
-    use_cases: [
-      'Organic search ranking improvements',
-      'Technical SEO audits and fixes',
-      'Content optimization for search',
-      'Local SEO for business visibility',
-      'Paid search campaign management'
-    ]
-  },
-  'mailchimp': {
-    title: 'Mailchimp',
-    description: 'All-in-one marketing platform for email marketing, automation, and audience management with powerful segmentation and analytics.',
-    category: 'Marketing',
-    features: ['Email Campaigns', 'Marketing Automation', 'Audience Segmentation', 'A/B Testing', 'Analytics & Reporting', 'Landing Pages'],
-    website: 'https://mailchimp.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/mailchimp-freddie-icon.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 15,
-    description_long: 'Mailchimp is my go-to platform for email marketing and automation. I create targeted campaigns, automated workflows, and detailed audience segments to drive engagement and conversions.',
-    use_cases: [
-      'Email newsletter campaigns and automation',
-      'Customer onboarding sequences',
-      'Abandoned cart recovery workflows',
-      'Audience segmentation and targeting',
-      'Campaign performance analysis and optimization'
-    ]
-  },
-  'google-analytics': {
-    title: 'Google Analytics',
-    description: 'Comprehensive web analytics platform for tracking website performance, user behavior, and conversion optimization.',
-    category: 'Marketing',
-    features: ['Traffic Analysis', 'Conversion Tracking', 'Audience Insights', 'Custom Reports', 'Goal Setting', 'E-commerce Tracking'],
-    website: 'https://analytics.google.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/google-analytics-4.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 22,
-    description_long: 'Google Analytics is essential for understanding website performance and user behavior. I use it to track conversions, analyze traffic patterns, and optimize digital marketing strategies.',
-    use_cases: [
-      'Website traffic analysis and reporting',
-      'Conversion funnel optimization',
-      'User behavior tracking and insights',
-      'Campaign performance measurement',
-      'E-commerce analytics and reporting'
-    ]
-  },
-  'zoho-crm': {
-    title: 'Zoho CRM',
-    description: 'Customer relationship management platform for sales automation, lead management, and customer engagement.',
-    category: 'Marketing',
-    features: ['Lead Management', 'Sales Automation', 'Contact Management', 'Pipeline Tracking', 'Reporting & Analytics', 'Integration Capabilities'],
-    website: 'https://www.zoho.com/crm/',
-    logo: 'https://cdn.worldvectorlogo.com/logos/zoho.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 12,
-    description_long: 'Zoho CRM helps me manage customer relationships and sales processes effectively. I use it for lead tracking, sales automation, and customer engagement strategies.',
-    use_cases: [
-      'Lead qualification and management',
-      'Sales pipeline tracking',
-      'Customer communication automation',
-      'Sales performance reporting',
-      'Integration with marketing tools'
-    ]
-  },
-  'hubspot': {
-    title: 'HubSpot',
-    description: 'Comprehensive inbound marketing and sales platform for lead generation, customer relationship management, and marketing automation.',
-    category: 'Marketing',
-    features: ['CRM Integration', 'Lead Scoring', 'Marketing Automation', 'Content Management', 'Social Media Tools', 'Analytics Dashboard'],
-    website: 'https://hubspot.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/hubspot-2.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 12,
-    description_long: 'HubSpot serves as my central hub for inbound marketing and sales operations. I leverage its comprehensive tools to attract, engage, and delight customers throughout their journey.',
-    use_cases: [
-      'Inbound marketing campaign management',
-      'Lead nurturing and scoring workflows',
-      'Content marketing and SEO optimization',
-      'Sales pipeline management and forecasting',
-      'Customer service and support automation'
-    ]
-  },
-  'campaign-optimization': {
-    title: 'Campaign Optimization',
-    description: 'Strategic approach to improving marketing campaign performance through data analysis, testing, and continuous refinement.',
-    category: 'Marketing',
-    features: ['A/B Testing', 'Performance Analysis', 'Audience Targeting', 'Budget Optimization', 'Creative Testing', 'ROI Improvement'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/facebook-ads.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 25,
-    description_long: 'Campaign optimization is at the core of my marketing strategy. I continuously test, analyze, and refine campaigns to maximize performance and ROI across all channels.',
-    use_cases: [
-      'A/B testing ad creatives and copy',
-      'Audience segmentation and targeting',
-      'Budget allocation optimization',
-      'Landing page conversion optimization',
-      'Multi-channel campaign coordination'
-    ]
-  },
-  'funnel-design': {
-    title: 'Funnel Design',
-    description: 'Strategic design and optimization of customer journey funnels to maximize conversions and customer lifetime value.',
-    category: 'Marketing',
-    features: ['Customer Journey Mapping', 'Conversion Optimization', 'Landing Page Design', 'Email Sequences', 'Retargeting Strategies', 'Analytics Integration'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/clickfunnels-1.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 18,
-    description_long: 'I design and optimize sales funnels that guide prospects through the customer journey, from awareness to conversion and retention.',
-    use_cases: [
-      'Lead generation funnel creation',
-      'E-commerce sales funnel optimization',
-      'Webinar registration and attendance funnels',
-      'Product launch sequence design',
-      'Customer onboarding flow optimization'
-    ]
-  },
-  'copywriting': {
-    title: 'Copywriting',
-    description: 'Persuasive writing for marketing materials, advertisements, and digital content that drives action and engagement.',
-    category: 'Marketing',
-    features: ['Ad Copy Creation', 'Email Marketing Copy', 'Landing Page Content', 'Social Media Copy', 'Sales Letters', 'Content Strategy'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/grammarly-1.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 30,
-    description_long: 'Effective copywriting is essential for converting prospects into customers. I create compelling, persuasive content that resonates with target audiences and drives action.',
-    use_cases: [
-      'Google Ads and Facebook ad copy',
-      'Email marketing campaigns',
-      'Landing page headlines and content',
-      'Social media post creation',
-      'Sales page and product descriptions'
-    ]
-  },
-  'lead-generation': {
-    title: 'Lead Generation',
-    description: 'Strategic processes and tactics for identifying, attracting, and converting potential customers into qualified leads.',
-    category: 'Marketing',
-    features: ['Lead Magnets', 'Landing Pages', 'Form Optimization', 'Lead Scoring', 'Nurture Campaigns', 'Qualification Processes'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg',
-    proficiency: 90,
-    experience: '2+ years',
-    projects: 35,
-    description_long: 'Lead generation is fundamental to business growth. I develop comprehensive strategies to attract, capture, and nurture leads through multiple channels and touchpoints.',
-    use_cases: [
-      'Content marketing lead magnets',
-      'Social media lead generation campaigns',
-      'Webinar and event lead capture',
-      'LinkedIn outreach and networking',
-      'Referral program development'
-    ]
-  },
-  'cold-calling': {
-    title: 'Cold Calling',
-    description: 'Direct sales approach for reaching potential customers through strategic phone outreach and conversation techniques.',
-    category: 'Marketing',
-    features: ['Script Development', 'Objection Handling', 'Prospect Research', 'Call Tracking', 'Follow-up Strategies', 'Conversion Optimization'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/aircall.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 20,
-    description_long: 'Cold calling remains an effective sales technique when done strategically. I develop targeted calling campaigns with personalized approaches to generate qualified leads.',
-    use_cases: [
-      'B2B prospect outreach campaigns',
-      'Appointment setting for sales teams',
-      'Market research and validation calls',
-      'Customer feedback collection',
-      'Reactivation campaigns for dormant leads'
-    ]
-  },
-  'deal-closing': {
-    title: 'Deal Closing',
-    description: 'Sales techniques and strategies for converting qualified prospects into paying customers through effective negotiation and relationship building.',
-    category: 'Marketing',
-    features: ['Negotiation Techniques', 'Objection Handling', 'Proposal Creation', 'Contract Management', 'Relationship Building', 'Follow-up Systems'],
-    website: '#',
-    logo: 'https://cdn.worldvectorlogo.com/logos/pipedrive.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 25,
-    description_long: 'Closing deals requires a combination of relationship building, value demonstration, and strategic negotiation. I focus on understanding customer needs and presenting solutions that drive decisions.',
-    use_cases: [
-      'B2B software sales closing',
-      'Service contract negotiations',
-      'Proposal presentation and follow-up',
-      'Objection handling and resolution',
-      'Long-term relationship development'
-    ]
-  },
-  'salesforce': {
-    title: 'Salesforce',
-    description: 'World\'s leading CRM platform for sales funnels, lead management, customer retention workflows, and comprehensive business process automation.',
-    category: 'Marketing',
-    features: ['Lead Management & Scoring', 'Sales Pipeline Automation', 'Customer Relationship Management', 'Workflow Automation', 'Analytics & Reporting', 'Integration Capabilities'],
-    website: 'https://salesforce.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/salesforce-2.svg',
-    proficiency: 80,
-    experience: '1.5+ years',
-    projects: 8,
-    description_long: 'Salesforce serves as the backbone of my CRM and sales automation strategies. I leverage its powerful features to design efficient sales funnels, manage leads effectively, and create automated workflows that enhance customer retention and drive business growth.',
-    use_cases: [
-      'Lead scoring and qualification automation',
-      'Sales pipeline management and forecasting',
-      'Customer journey mapping and optimization',
-      'Email marketing automation and nurturing',
-      'Performance analytics and reporting'
-    ]
-  },
-  'semrush': {
-    title: 'Semrush',
-    description: 'Comprehensive SEO/SEM platform used for keyword research, content planning, competitor analysis, and digital marketing strategy optimization.',
-    category: 'Marketing',
-    features: ['Keyword Research & Analysis', 'Competitor Intelligence', 'Content Planning & Optimization', 'Backlink Analysis & Building', 'Rank Tracking', 'Site Audit & Technical SEO'],
-    website: 'https://semrush.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/semrush-1.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 15,
-    description_long: 'Semrush is my go-to platform for comprehensive SEO and digital marketing analysis. I use it extensively for keyword research, competitor analysis, and content strategy development. The platform helps me identify high-value keywords, analyze competitor strategies, and optimize content for better search engine rankings.',
-    use_cases: [
-      'Keyword research for content marketing campaigns',
-      'Competitor analysis and market intelligence',
-      'Technical SEO audits and optimization',
-      'Content gap analysis and planning',
-      'Backlink profile analysis and link building'
-    ]
-  },
-  'n8n': {
-    title: 'n8n',
-    description: 'Open-source workflow automation tool for connecting different services, APIs, and creating sophisticated business process automations without coding.',
-    category: 'AI Agents & Automation',
-    features: ['Visual Workflow Editor', 'API Integration', 'Custom Nodes', 'Webhook Support', 'Conditional Logic', 'Data Transformation'],
-    website: 'https://n8n.io',
-    logo: 'https://cdn.worldvectorlogo.com/logos/n8n.svg',
-    proficiency: 80,
-    experience: '1+ years',
-    projects: 15,
-    description_long: 'n8n is my preferred automation platform for creating complex workflows that connect various business tools and services. I use it to automate repetitive tasks, integrate different systems, and create intelligent business processes.',
-    use_cases: [
-      'CRM automation and lead nurturing workflows',
-      'Social media posting and content distribution',
-      'Data synchronization between platforms',
-      'Email marketing automation sequences',
-      'Customer support ticket routing and management'
-    ]
-  },
-  'zapier': {
-    title: 'Zapier',
-    description: 'Popular automation platform that connects different apps and services to create automated workflows without coding.',
-    category: 'AI Agents & Automation',
-    features: ['App Integration', 'Workflow Automation', 'Trigger-Based Actions', 'Multi-Step Zaps', 'Data Formatting', 'Error Handling'],
-    website: 'https://zapier.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/zapier.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 20,
-    description_long: 'Zapier enables me to create powerful automations that connect different business tools and streamline workflows. I use it to eliminate manual tasks and improve operational efficiency.',
-    use_cases: [
-      'Lead data synchronization between platforms',
-      'Automated social media posting and content distribution',
-      'Customer onboarding and follow-up sequences',
-      'Data backup and synchronization workflows',
-      'Notification and alert systems'
-    ]
-  },
-  'make': {
-    title: 'Make.com',
-    description: 'Visual automation platform for creating complex workflows and integrations between apps and services.',
-    category: 'AI Agents & Automation',
-    features: ['Visual Scenario Builder', 'Advanced Logic', 'Error Handling', 'Data Processing', 'API Connections', 'Scheduling'],
-    website: 'https://make.com',
-    logo: 'https://www.make.com/en/help/image/uuid-e8b0b9b0-7b1a-4b0a-8b0a-8b0a8b0a8b0a.png',
-    proficiency: 75,
-    experience: '1+ years',
-    projects: 10,
-    description_long: 'Make.com provides advanced automation capabilities with visual workflow building. I use it for complex integrations that require sophisticated logic and data processing.',
-    use_cases: [
-      'Complex data transformation workflows',
-      'Multi-step business process automation',
-      'Advanced API integrations',
-      'Conditional workflow execution',
-      'Real-time data synchronization'
-    ]
-  },
-  'claude': {
-    title: 'Claude',
-    description: 'Advanced AI assistant for content creation, analysis, and automation tasks with sophisticated reasoning capabilities.',
-    category: 'AI Agents & Automation',
-    features: ['Content Generation', 'Data Analysis', 'Code Assistance', 'Research Support', 'Creative Writing', 'Problem Solving'],
-    website: 'https://claude.ai',
-    logo: 'https://claude.ai/favicon.ico',
-    proficiency: 85,
-    experience: '1+ years',
-    projects: 25,
-    description_long: 'Claude is my go-to AI assistant for content creation, analysis, and complex problem-solving tasks. I leverage its advanced reasoning capabilities for various business and creative applications.',
-    use_cases: [
-      'Content creation and copywriting',
-      'Data analysis and insights generation',
-      'Code review and optimization',
-      'Research and information synthesis',
-      'Creative brainstorming and ideation'
-    ]
-  },
-  'openai': {
-    title: 'OpenAI',
-    description: 'Leading AI platform providing GPT models and tools for natural language processing, content generation, and automation.',
-    category: 'AI Agents & Automation',
-    features: ['GPT Models', 'API Integration', 'Content Generation', 'Language Processing', 'Code Generation', 'Fine-tuning'],
-    website: 'https://openai.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/openai-2.svg',
-    proficiency: 80,
-    experience: '1.5+ years',
-    projects: 20,
-    description_long: 'OpenAI\'s GPT models power many of my AI-driven solutions. I integrate these models into applications for content generation, analysis, and intelligent automation.',
-    use_cases: [
-      'Automated content generation systems',
-      'Chatbot and virtual assistant development',
-      'Text analysis and summarization',
-      'Code generation and optimization',
-      'Creative writing and ideation tools'
-    ]
-  },
-  'airtable': {
-    title: 'Airtable',
-    description: 'Flexible database platform that combines spreadsheet functionality with database power for project management and data organization.',
-    category: 'AI Agents & Automation',
-    features: ['Database Management', 'Project Tracking', 'Collaboration Tools', 'API Integration', 'Custom Views', 'Automation Rules'],
-    website: 'https://airtable.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/airtable.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 12,
-    description_long: 'Airtable serves as my flexible database solution for project management, data organization, and workflow automation. I use it to create structured data systems that integrate with other tools.',
-    use_cases: [
-      'Project and task management systems',
-      'Customer and lead database management',
-      'Content calendar and planning',
-      'Inventory and resource tracking',
-      'Team collaboration and workflow management'
-    ]
-  },
-  'html': {
-    title: 'HTML',
-    description: 'Hypertext Markup Language - the standard markup language for creating web pages and web applications.',
-    category: 'Web Development',
-    features: ['Semantic Markup', 'Forms & Input', 'Media Elements', 'Accessibility', 'SEO Optimization', 'Modern HTML5'],
-    website: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
-    logo: 'https://cdn.worldvectorlogo.com/logos/html-1.svg',
-    proficiency: 90,
-    experience: '3+ years',
-    projects: 40,
-    description_long: 'HTML is the foundation of all web development. I write semantic, accessible HTML that provides a solid structure for web applications and ensures optimal SEO performance.',
-    use_cases: [
-      'Semantic web page structure creation',
-      'Form design and validation',
-      'Accessibility-compliant markup',
-      'SEO-optimized content structure',
-      'Progressive web app development'
-    ]
-  },
-  'css': {
-    title: 'CSS',
-    description: 'Cascading Style Sheets for styling and layout of web pages with modern features like Grid, Flexbox, and animations.',
-    category: 'Web Development',
-    features: ['Responsive Design', 'CSS Grid & Flexbox', 'Animations', 'Custom Properties', 'Modern Layouts', 'Performance Optimization'],
-    website: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
-    logo: 'https://cdn.worldvectorlogo.com/logos/css-3.svg',
-    proficiency: 85,
-    experience: '3+ years',
-    projects: 35,
-    description_long: 'CSS is essential for creating beautiful, responsive web interfaces. I use modern CSS features to create engaging user experiences with smooth animations and optimal performance.',
-    use_cases: [
-      'Responsive web design implementation',
-      'Custom animation and interaction design',
-      'Component-based styling systems',
-      'Performance-optimized stylesheets',
-      'Cross-browser compatibility solutions'
-    ]
-  },
-  'javascript': {
-    title: 'JavaScript',
-    description: 'Dynamic programming language for web development, enabling interactive user interfaces and full-stack applications.',
-    category: 'Web Development',
-    features: ['DOM Manipulation', 'Event Handling', 'Async Programming', 'ES6+ Features', 'API Integration', 'Framework Integration'],
-    website: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
-    logo: 'https://cdn.worldvectorlogo.com/logos/logo-javascript.svg',
-    proficiency: 80,
-    experience: '2.5+ years',
-    projects: 30,
-    description_long: 'JavaScript powers the interactive elements of modern web applications. I use it to create dynamic user interfaces, handle user interactions, and integrate with APIs and services.',
-    use_cases: [
-      'Interactive web application development',
-      'API integration and data handling',
-      'User interface enhancement and interactivity',
-      'Form validation and user input processing',
-      'Single-page application development'
-    ]
-  },
-  'react': {
-    title: 'React',
-    description: 'A powerful JavaScript library for building modern, interactive user interfaces with component-based architecture and efficient state management.',
-    category: 'Web Development',
-    features: ['Component-Based Architecture', 'Virtual DOM', 'JSX Syntax', 'State Management', 'Hooks', 'Ecosystem Integration'],
-    website: 'https://reactjs.org',
-    logo: 'https://cdn.worldvectorlogo.com/logos/react-2.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 10,
-    description_long: 'React is my framework of choice for building modern web applications. I leverage its component-based architecture to create reusable, maintainable code and build interactive user interfaces that provide excellent user experiences.',
-    use_cases: [
-      'Single Page Applications (SPAs)',
-      'Interactive dashboards and admin panels',
-      'E-commerce platforms and product catalogs',
-      'Portfolio websites and landing pages',
-      'Progressive Web Applications (PWAs)'
-    ]
-  },
-  'python': {
-    title: 'Python',
-    description: 'Versatile programming language used for data analysis, automation, web development, and AI/ML applications with extensive library ecosystem.',
-    category: 'Web Development',
-    features: ['Data Analysis', 'Automation Scripts', 'Web Development', 'Machine Learning', 'API Development', 'Database Integration'],
-    website: 'https://python.org',
-    logo: 'https://cdn.worldvectorlogo.com/logos/python-5.svg',
-    proficiency: 75,
-    experience: '2+ years',
-    projects: 18,
-    description_long: 'Python is my go-to language for data analysis, automation, and backend development. Its simplicity and powerful libraries make it perfect for everything from data processing to building web applications and automation scripts.',
-    use_cases: [
-      'Data analysis and visualization with pandas/matplotlib',
-      'Web scraping and data collection automation',
-      'API development with Flask/FastAPI',
-      'Business process automation scripts',
-      'Machine learning model development'
-    ]
-  },
-  'sql': {
-    title: 'SQL',
-    description: 'Structured Query Language for managing and manipulating relational databases, enabling efficient data retrieval, analysis, and reporting.',
-    category: 'Web Development',
-    features: ['Data Querying', 'Database Design', 'Data Analysis', 'Stored Procedures', 'Performance Optimization', 'Data Integrity'],
-    website: 'https://www.w3schools.com/sql/',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 20,
-    description_long: 'SQL is fundamental to my data management and analysis work. I use it to design efficient database schemas, write complex queries for data analysis, and optimize database performance for web applications.',
-    use_cases: [
-      'Database design and schema creation',
-      'Complex data analysis and reporting queries',
-      'Data migration and transformation scripts',
-      'Performance optimization and indexing',
-      'Stored procedure development for business logic'
-    ]
-  },
-  'supabase': {
-    title: 'Supabase',
-    description: 'Open-source Firebase alternative providing real-time database, authentication, and API services with PostgreSQL backend.',
-    category: 'Web Development',
-    features: ['Real-time Database', 'Authentication', 'API Generation', 'Storage', 'Edge Functions', 'Row Level Security'],
-    website: 'https://supabase.com',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Supabase_Logo.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 12,
-    description_long: 'Supabase is my preferred backend-as-a-service platform for modern web applications. I leverage its PostgreSQL database, real-time subscriptions, and built-in authentication to build scalable, secure applications quickly.',
-    use_cases: [
-      'Real-time web application backends',
-      'User authentication and authorization systems',
-      'API development with auto-generated endpoints',
-      'File storage and media management',
-      'Database management with PostgreSQL'
-    ]
-  },
-  'firebase': {
-    title: 'Firebase',
-    description: 'Google\'s comprehensive app development platform providing backend services, databases, authentication, and hosting solutions.',
-    category: 'Web Development',
-    features: ['Realtime Database', 'Cloud Firestore', 'Authentication', 'Cloud Functions', 'Hosting', 'Analytics'],
-    website: 'https://firebase.google.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/firebase-1.svg',
-    proficiency: 70,
-    experience: '1.5+ years',
-    projects: 10,
-    description_long: 'Firebase provides a complete backend infrastructure for web and mobile applications. I use it for rapid prototyping and building scalable applications with real-time features and robust authentication.',
-    use_cases: [
-      'Real-time chat and collaboration features',
-      'User authentication and profile management',
-      'Cloud function development for serverless logic',
-      'Static website hosting and deployment',
-      'Analytics and performance monitoring'
-    ]
-  },
-  'git': {
-    title: 'Git',
-    description: 'Distributed version control system for tracking changes in source code during software development and enabling team collaboration.',
-    category: 'Web Development',
-    features: ['Version Control', 'Branching & Merging', 'Collaboration', 'History Tracking', 'Conflict Resolution', 'Remote Repositories'],
-    website: 'https://git-scm.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/git-icon.svg',
-    proficiency: 85,
-    experience: '2.5+ years',
-    projects: 35,
-    description_long: 'Git is essential for all my development work, enabling version control, collaboration, and code management. I use advanced Git workflows for team collaboration and maintain clean, organized project histories.',
-    use_cases: [
-      'Source code version control and history tracking',
-      'Team collaboration and code review workflows',
-      'Feature branch development and merging',
-      'Release management and tagging',
-      'Conflict resolution and code integration'
-    ]
-  },
-  'github': {
-    title: 'GitHub',
-    description: 'Web-based Git repository hosting service providing collaboration tools, project management, and CI/CD capabilities for software development.',
-    category: 'Web Development',
-    features: ['Repository Hosting', 'Pull Requests', 'Issue Tracking', 'Actions (CI/CD)', 'Project Management', 'Code Review'],
-    website: 'https://github.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/github-icon-1.svg',
-    proficiency: 80,
-    experience: '2.5+ years',
-    projects: 30,
-    description_long: 'GitHub is my primary platform for code hosting, collaboration, and project management. I use it for version control, code reviews, issue tracking, and automated deployment workflows.',
-    use_cases: [
-      'Code repository hosting and management',
-      'Collaborative development with pull requests',
-      'Issue tracking and project management',
-      'Automated testing and deployment with Actions',
-      'Open source contribution and portfolio showcase'
-    ]
-  },
-  'netlify': {
-    title: 'Netlify',
-    description: 'Modern web development platform offering continuous deployment, serverless functions, and global CDN for static sites and web applications.',
-    category: 'Web Development',
-    features: ['Continuous Deployment', 'Global CDN', 'Serverless Functions', 'Form Handling', 'Domain Management', 'Analytics'],
-    website: 'https://netlify.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/netlify.svg',
-    proficiency: 75,
-    experience: '2+ years',
-    projects: 15,
-    description_long: 'Netlify is my go-to platform for deploying static sites and JAMstack applications. I use it for continuous deployment, form handling, and serverless functions to create fast, scalable web applications.',
-    use_cases: [
-      'Static site deployment and hosting',
-      'Continuous deployment from Git repositories',
-      'Form handling and data collection',
-      'Serverless function development',
-      'Domain management and SSL certificates'
-    ]
-  },
-  'mongodb': {
-    title: 'MongoDB',
-    description: 'NoSQL document database providing flexible, scalable data storage with JSON-like documents and powerful querying capabilities.',
-    category: 'Web Development',
-    features: ['Document Storage', 'Flexible Schema', 'Scalability', 'Aggregation Framework', 'Indexing', 'Replication'],
-    website: 'https://mongodb.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg',
-    proficiency: 70,
-    experience: '1.5+ years',
-    projects: 8,
-    description_long: 'MongoDB provides flexible, document-based data storage for modern applications. I use it for projects requiring dynamic schemas, complex data structures, and scalable database solutions.',
-    use_cases: [
-      'Content management system backends',
-      'User profile and preference storage',
-      'Product catalog and inventory management',
-      'Analytics data collection and processing',
-      'Real-time application data storage'
-    ]
-  },
-  'c': {
-    title: 'C Programming',
-    description: 'Foundational programming language providing low-level control, system programming capabilities, and the basis for many modern languages.',
-    category: 'Web Development',
-    features: ['System Programming', 'Memory Management', 'Performance Optimization', 'Hardware Interaction', 'Algorithm Implementation', 'Cross-Platform Development'],
-    website: 'https://en.cppreference.com/w/c',
-    logo: 'https://cdn.worldvectorlogo.com/logos/c-1.svg',
-    proficiency: 65,
-    experience: '2+ years',
-    projects: 12,
-    description_long: 'C programming provides fundamental understanding of computer systems and memory management. I use it for system-level programming, algorithm implementation, and understanding the underlying principles of software development.',
-    use_cases: [
-      'System programming and utility development',
-      'Algorithm implementation and optimization',
-      'Embedded system programming',
-      'Performance-critical application development',
-      'Understanding of memory management and pointers'
-    ]
-  },
-  'power-bi': {
-    title: 'Power BI',
-    description: 'Microsoft\'s leading business analytics tool for visualizing data, creating interactive dashboards, and sharing actionable business insights across organizations.',
-    category: 'Business Analytics',
-    features: ['Data Visualization', 'Interactive Dashboards', 'Report Generation', 'Data Modeling', 'Real-time Analytics', 'Collaboration Tools'],
-    website: 'https://powerbi.microsoft.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/power-bi.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 12,
-    description_long: 'Power BI is my primary tool for business intelligence and data visualization. I create comprehensive dashboards that transform raw data into actionable insights, helping stakeholders make informed decisions based on real-time analytics.',
-    use_cases: [
-      'Executive dashboards for KPI monitoring',
-      'Sales performance analytics and forecasting',
-      'Marketing campaign ROI analysis',
-      'Customer behavior and segmentation analysis',
-      'Financial reporting and budget tracking'
-    ]
-  },
-  'tableau': {
-    title: 'Tableau',
-    description: 'Leading data visualization platform for creating interactive dashboards, advanced analytics, and compelling data stories for business intelligence.',
-    category: 'Business Analytics',
-    features: ['Interactive Dashboards', 'Advanced Visualizations', 'Data Blending', 'Statistical Analysis', 'Real-time Analytics', 'Story Telling'],
-    website: 'https://tableau.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/tableau-software.svg',
-    proficiency: 70,
-    experience: '1+ years',
-    projects: 8,
-    description_long: 'Tableau helps me create stunning visualizations that tell compelling data stories. I use it to build interactive dashboards that make complex data accessible and actionable for business stakeholders.',
-    use_cases: [
-      'Executive dashboard creation',
-      'Sales and marketing performance visualization',
-      'Customer analytics and segmentation',
-      'Financial reporting and KPI tracking',
-      'Operational efficiency analysis'
-    ]
-  },
-  'excel': {
-    title: 'Microsoft Excel',
-    description: 'Advanced spreadsheet application for data analysis, financial modeling, reporting, and business intelligence with powerful formula and visualization capabilities.',
-    category: 'Business Analytics',
-    features: ['Advanced Formulas', 'Pivot Tables', 'Data Visualization', 'VBA Automation', 'Financial Modeling', 'Statistical Analysis'],
-    website: 'https://microsoft.com/excel',
-    logo: 'https://cdn.worldvectorlogo.com/logos/microsoft-excel-2013.svg',
-    proficiency: 90,
-    experience: '3+ years',
-    projects: 25,
-    description_long: 'Excel remains one of my most powerful tools for data analysis and business modeling. I use advanced features like pivot tables, complex formulas, and VBA automation to create sophisticated analytical solutions.',
-    use_cases: [
-      'Financial modeling and forecasting',
-      'Data analysis and statistical calculations',
-      'Business reporting and dashboard creation',
-      'Budget planning and variance analysis',
-      'Automated data processing with VBA'
-    ]
-  },
-  'matplotlib': {
-    title: 'Matplotlib',
-    description: 'Comprehensive plotting library for Python, enabling creation of static, animated, and interactive visualizations for data analysis and scientific computing.',
-    category: 'Business Analytics',
-    features: ['2D/3D Plotting', 'Publication-Quality Figures', 'Interactive Plots', 'Animation Support', 'Customizable Styling', 'Multiple Output Formats'],
-    website: 'https://matplotlib.org',
-    logo: 'https://matplotlib.org/stable/_static/logo2_compressed.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 18,
-    description_long: 'Matplotlib is my primary tool for creating data visualizations in Python. I use it extensively for exploratory data analysis, creating publication-ready charts, and building custom interactive dashboards.',
-    use_cases: [
-      'Statistical data visualization and analysis',
-      'Scientific plotting and research presentations',
-      'Business intelligence dashboard creation',
-      'Time series analysis and forecasting charts',
-      'Custom visualization components for web applications'
-    ]
-  },
-  'spss': {
-    title: 'SPSS',
-    description: 'Statistical Package for Social Sciences - powerful statistical analysis software for complex data analysis, predictive analytics, and decision-making.',
-    category: 'Business Analytics',
-    features: ['Statistical Analysis', 'Predictive Modeling', 'Data Mining', 'Survey Research', 'Advanced Analytics', 'Report Generation'],
-    website: 'https://www.ibm.com/spss',
-    logo: 'https://cdn.worldvectorlogo.com/logos/spss.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 12,
-    description_long: 'SPSS is my go-to tool for advanced statistical analysis and research. I leverage its powerful capabilities for hypothesis testing, regression analysis, and predictive modeling in business contexts.',
-    use_cases: [
-      'Market research and consumer behavior analysis',
-      'Statistical hypothesis testing and validation',
-      'Predictive modeling for business forecasting',
-      'Survey data analysis and reporting',
-      'Academic research and statistical consulting'
-    ]
-  },
-  'r': {
-    title: 'R Programming',
-    description: 'Powerful programming language and environment for statistical computing, data analysis, and graphics with extensive package ecosystem.',
-    category: 'Business Analytics',
-    features: ['Statistical Computing', 'Data Manipulation', 'Advanced Graphics', 'Package Ecosystem', 'Reproducible Research', 'Machine Learning'],
-    website: 'https://www.r-project.org',
-    logo: 'https://cdn.worldvectorlogo.com/logos/r-lang.svg',
-    proficiency: 75,
-    experience: '1.5+ years',
-    projects: 10,
-    description_long: 'R is my preferred language for statistical analysis and data science projects. I use it for complex data manipulation, statistical modeling, and creating sophisticated visualizations.',
-    use_cases: [
-      'Statistical modeling and hypothesis testing',
-      'Data cleaning and transformation workflows',
-      'Advanced data visualization with ggplot2',
-      'Time series analysis and forecasting',
-      'Machine learning model development'
-    ]
-  },
-  'seaborn': {
-    title: 'Seaborn',
-    description: 'Statistical data visualization library built on matplotlib, providing beautiful and informative statistical graphics with high-level interface.',
-    category: 'Business Analytics',
-    features: ['Statistical Plotting', 'Beautiful Defaults', 'Dataset-Oriented API', 'Integrated Statistical Functions', 'Flexible Styling', 'Multi-plot Grids'],
-    website: 'https://seaborn.pydata.org',
-    logo: 'https://seaborn.pydata.org/_static/logo-wide-lightbg.svg',
-    proficiency: 80,
-    experience: '2+ years',
-    projects: 15,
-    description_long: 'Seaborn enhances my data visualization capabilities with its statistical plotting functions. I use it to create informative and aesthetically pleasing statistical graphics quickly.',
-    use_cases: [
-      'Exploratory data analysis and statistical summaries',
-      'Correlation analysis and heatmap visualization',
-      'Distribution analysis and comparison plots',
-      'Regression analysis visualization',
-      'Multi-dimensional data exploration'
-    ]
-  },
-  'dashboarding': {
-    title: 'Dashboarding',
-    description: 'Strategic approach to creating interactive business intelligence dashboards that transform complex data into actionable insights for decision-making.',
-    category: 'Business Analytics',
-    features: ['Interactive Visualization', 'Real-time Data', 'KPI Tracking', 'Drill-down Analysis', 'Mobile Responsiveness', 'Automated Reporting'],
-    website: 'https://grafana.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/grafana.svg',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 20,
-    description_long: 'I specialize in creating comprehensive business dashboards that provide stakeholders with real-time insights. My approach focuses on user experience and actionable data presentation.',
-    use_cases: [
-      'Executive dashboard development and KPI monitoring',
-      'Sales performance tracking and forecasting',
-      'Marketing campaign effectiveness analysis',
-      'Operational metrics and process optimization',
-      'Financial reporting and budget variance analysis'
-    ]
-  },
-  'pandas': {
-    title: 'Pandas',
-    description: 'Powerful data manipulation and analysis library for Python, providing data structures and operations for manipulating numerical tables and time series.',
-    category: 'Business Analytics',
-    features: ['Data Manipulation', 'Time Series Analysis', 'Data Cleaning', 'Merging & Joining', 'Grouping Operations', 'File I/O'],
-    website: 'https://pandas.pydata.org',
-    logo: 'https://cdn.worldvectorlogo.com/logos/pandas.svg',
-    proficiency: 90,
-    experience: '2+ years',
-    projects: 25,
-    description_long: 'Pandas is fundamental to my data analysis workflow. I use it extensively for data cleaning, transformation, and analysis tasks, making it the backbone of my Python-based analytics projects.',
-    use_cases: [
-      'Data cleaning and preprocessing pipelines',
-      'Time series analysis and financial modeling',
-      'Business intelligence and reporting automation',
-      'ETL processes and data integration',
-      'Statistical analysis and feature engineering'
-    ]
-  },
-  'data-cleaning': {
-    title: 'SQL Data Cleaning',
-    description: 'Systematic approach to identifying, correcting, and removing inaccurate records from databases using SQL queries and data validation techniques.',
-    category: 'Business Analytics',
-    features: ['Data Validation', 'Duplicate Removal', 'Missing Value Handling', 'Data Standardization', 'Quality Assessment', 'Automated Cleaning'],
-    website: 'https://www.postgresql.org',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png',
-    proficiency: 85,
-    experience: '2+ years',
-    projects: 22,
-    description_long: 'SQL data cleaning is essential to my analytics workflow. I develop robust data cleaning pipelines using SQL to ensure data quality and integrity for accurate business insights.',
-    use_cases: [
-      'Customer data deduplication and standardization',
-      'Financial data validation and correction',
-      'Sales data cleansing for accurate reporting',
-      'Database maintenance and optimization',
-      'ETL pipeline data quality assurance'
-    ]
-  },
-  'supabase': {
-    title: 'Supabase',
-    description: 'Open-source Firebase alternative providing instant APIs, real-time subscriptions, authentication, and storage with PostgreSQL foundation.',
-    category: 'Web Development',
-    features: ['PostgreSQL Database', 'Real-time APIs', 'Authentication', 'File Storage', 'Edge Functions', 'Dashboard Management'],
-    website: 'https://supabase.com',
-    logo: 'https://supabase.com/brand-assets/supabase-logo-icon.png',
-    proficiency: 75,
-    experience: '1+ years',
-    projects: 8,
-    description_long: 'Supabase provides me with a powerful backend-as-a-service solution. I use it to rapidly build applications with robust database functionality, authentication, and real-time capabilities.',
-    use_cases: [
-      'Full-stack web application development',
-      'Real-time collaborative applications',
-      'User authentication and authorization',
-      'File storage and management systems',
-      'API development and database management'
-    ]
-  },
-  'make': {
-    title: 'Make.com',
-    description: 'Visual automation platform for connecting apps and services, creating powerful workflows without coding through intuitive drag-and-drop interface.',
-    category: 'AI Agents & Automation',
-    features: ['Visual Workflow Builder', 'App Integrations', 'Real-time Processing', 'Error Handling', 'Scheduling', 'Webhook Support'],
-    website: 'https://www.make.com',
-    logo: 'https://www.make.com/en/brand-assets/make-logo.svg',
-    proficiency: 80,
-    experience: '1.5+ years',
-    projects: 15,
-    description_long: 'Make.com enables me to create sophisticated automation workflows without extensive coding. I use it to integrate various business tools and automate repetitive processes efficiently.',
-    use_cases: [
-      'Marketing automation and lead nurturing',
-      'Data synchronization between platforms',
-      'E-commerce order processing automation',
-      'Social media content scheduling',
-      'Customer support workflow automation'
-    ]
-  },
-  'n8n': {
-    title: 'n8n',
-    description: 'Free and open-source workflow automation tool for connecting different services and automating tasks with a powerful visual editor.',
-    category: 'AI Agents & Automation',
-    features: ['Open Source', 'Self-hosted Options', 'Custom Code Execution', 'Webhook Support', 'Conditional Logic', 'Error Handling'],
-    website: 'https://n8n.io',
-    logo: 'https://n8n.io/favicon.svg',
-    proficiency: 75,
-    experience: '1+ years',
-    projects: 12,
-    description_long: 'n8n provides me with flexible, open-source automation capabilities. I use it for complex workflow automation where I need more control and customization than traditional automation platforms offer.',
-    use_cases: [
-      'Custom business process automation',
-      'Data pipeline creation and management',
-      'API integration and workflow orchestration',
-      'Monitoring and alert systems',
-      'Self-hosted automation solutions'
-    ]
-  },
-  'bolt': {
-    title: 'Bolt',
-    description: 'AI-powered development environment for building full-stack applications with intelligent code assistance and rapid deployment.',
-    category: 'Vibe Coding',
-    features: ['Full-Stack Development', 'AI Code Assistance', 'Rapid Deployment', 'Real-time Collaboration', 'Integrated Tools', 'Cloud Integration'],
-    website: 'https://bolt.new',
-    logo: 'https://bolt.new/logo.svg',
-    proficiency: 75,
-    experience: '6+ months',
-    projects: 8,
-    description_long: 'Bolt enables rapid full-stack development with AI assistance. I use it to quickly build and deploy applications with intelligent code suggestions and integrated development tools.',
-    use_cases: [
-      'Full-stack application development',
-      'Rapid prototyping and testing',
-      'AI-assisted debugging and optimization',
-      'Quick deployment and hosting',
-      'Collaborative development workflows'
-    ]
-  },
-  'lovable': {
-    title: 'Lovable AI + vO',
-    description: 'AI-powered development platform for rapid prototyping, application building, and collaborative development with intelligent code generation.',
-    category: 'Vibe Coding',
-    features: ['AI-Powered Development', 'Rapid Prototyping', 'Code Generation', 'Visual Development', 'Collaboration Tools', 'Deployment Integration'],
-    website: 'https://lovable.dev',
-    logo: 'https://lovable.dev/favicon.ico',
-    proficiency: 70,
-    experience: '6+ months',
-    projects: 5,
-    description_long: 'Lovable represents the future of development for me - combining AI assistance with traditional coding to accelerate the development process. I use it for rapid prototyping and building applications with intelligent code suggestions.',
-    use_cases: [
-      'Rapid MVP development and prototyping',
-      'AI-assisted code generation and optimization',
-      'Collaborative development projects',
-      'Quick landing page and website creation',
-      'Experimental feature development'
-    ]
-  },
-  'bolt': {
-    title: 'Bolt',
-    description: 'AI-powered development environment for building full-stack applications with intelligent code assistance and rapid deployment.',
-    category: 'Vibe Coding',
-    features: ['Full-Stack Development', 'AI Code Assistance', 'Rapid Deployment', 'Real-time Collaboration', 'Integrated Tools', 'Cloud Integration'],
-    website: 'https://bolt.new',
-    logo: 'https://bolt.new/favicon.ico',
-    proficiency: 75,
-    experience: '6+ months',
-    projects: 8,
-    description_long: 'Bolt enables rapid full-stack development with AI assistance. I use it to quickly build and deploy applications with intelligent code suggestions and integrated development tools.',
-    use_cases: [
-      'Full-stack application development',
-      'Rapid prototyping and testing',
-      'AI-assisted debugging and optimization',
-      'Quick deployment and hosting',
-      'Collaborative development workflows'
-    ]
-  },
-  'gpt-4': {
-    title: 'GPT-4',
-    description: 'Advanced language model for content creation, analysis, coding assistance, and complex problem-solving tasks.',
-    category: 'Vibe Coding',
-    features: ['Natural Language Processing', 'Code Generation', 'Content Creation', 'Problem Solving', 'Analysis & Research', 'Creative Writing'],
-    website: 'https://openai.com/gpt-4',
-    logo: 'https://cdn.worldvectorlogo.com/logos/openai-2.svg',
-    proficiency: 85,
-    experience: '1+ years',
-    projects: 30,
-    description_long: 'GPT-4 is integral to my development and content creation workflow. I use it for code generation, problem-solving, content creation, and complex analysis tasks.',
-    use_cases: [
-      'Code generation and debugging assistance',
-      'Content creation and copywriting',
-      'Complex problem analysis and solutions',
-      'Research and information synthesis',
-      'Creative brainstorming and ideation'
-    ]
-  },
-  'hugging-face': {
-    title: 'Hugging Face',
-    description: 'Open-source platform for machine learning models, datasets, and tools for natural language processing and AI development.',
-    category: 'Vibe Coding',
-    features: ['Pre-trained Models', 'Model Fine-tuning', 'Dataset Management', 'Transformers Library', 'Model Deployment', 'Community Collaboration'],
-    website: 'https://huggingface.co',
-    logo: 'https://huggingface.co/front/assets/huggingface_logo-noborder.svg',
-    proficiency: 65,
-    experience: '8+ months',
-    projects: 6,
-    description_long: 'Hugging Face provides access to state-of-the-art machine learning models and tools. I use it for NLP tasks, model fine-tuning, and integrating AI capabilities into applications.',
-    use_cases: [
-      'Natural language processing tasks',
-      'Sentiment analysis and text classification',
-      'Model fine-tuning for specific use cases',
-      'Text generation and summarization',
-      'AI model integration in applications'
-    ]
-  }
-};
-
 export default function ToolDetail() {
   const { toolName } = useParams();
-  const tool = tools[toolName as keyof typeof tools];
+
+  // Tool data with descriptions
+  const toolsData: Record<string, any> = {
+    'google-ads': {
+      name: 'Google Ads',
+      category: 'Marketing',
+      description: 'Google Ads is a powerful online advertising platform that allows businesses to display ads on Google search results and across the Google network.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '🎯',
+      color: 'from-blue-500 to-cyan-500',
+      features: [
+        'Campaign Management',
+        'Keyword Research',
+        'Ad Copy Optimization',
+        'Bid Strategy',
+        'Performance Analytics',
+        'Conversion Tracking'
+      ],
+      skills: [
+        'Search Campaigns',
+        'Display Advertising',
+        'Shopping Ads',
+        'Video Campaigns',
+        'App Promotion',
+        'Local Campaigns'
+      ],
+      certifications: [
+        'Google Ads Search Certification',
+        'Google Ads Display Certification',
+        'Google Analytics Certified'
+      ]
+    },
+    'seo-sem': {
+      name: 'SEO/SEM',
+      category: 'Marketing',
+      description: 'Search Engine Optimization and Search Engine Marketing strategies to improve website visibility and drive targeted traffic.',
+      proficiency: 80,
+      experience: '2+ years',
+      icon: '🔍',
+      color: 'from-green-500 to-teal-500',
+      features: [
+        'Keyword Research',
+        'On-Page Optimization',
+        'Technical SEO',
+        'Link Building',
+        'Content Strategy',
+        'Analytics & Reporting'
+      ],
+      skills: [
+        'Google Search Console',
+        'SEMrush',
+        'Ahrefs',
+        'Keyword Planning',
+        'Content Optimization',
+        'Local SEO'
+      ]
+    },
+    'mailchimp': {
+      name: 'Mailchimp',
+      category: 'Marketing',
+      description: 'Email marketing platform for creating, sending, and analyzing email campaigns to engage customers and drive conversions.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '📧',
+      color: 'from-yellow-500 to-orange-500',
+      features: [
+        'Email Campaign Creation',
+        'Audience Segmentation',
+        'Automation Workflows',
+        'A/B Testing',
+        'Analytics Dashboard',
+        'Template Design'
+      ],
+      skills: [
+        'Campaign Design',
+        'List Management',
+        'Automation Setup',
+        'Performance Analysis',
+        'Integration Setup',
+        'Template Customization'
+      ]
+    },
+    'google-analytics': {
+      name: 'Google Analytics',
+      category: 'Marketing',
+      description: 'Web analytics service that tracks and reports website traffic, providing insights into user behavior and marketing performance.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '📊',
+      color: 'from-purple-500 to-pink-500',
+      features: [
+        'Traffic Analysis',
+        'Conversion Tracking',
+        'Audience Insights',
+        'Goal Setting',
+        'Custom Reports',
+        'Real-time Data'
+      ],
+      skills: [
+        'GA4 Setup',
+        'Event Tracking',
+        'Custom Dimensions',
+        'Funnel Analysis',
+        'Attribution Modeling',
+        'Data Studio Integration'
+      ]
+    },
+    'zoho-crm': {
+      name: 'Zoho CRM',
+      category: 'Marketing',
+      description: 'Customer relationship management platform for managing sales processes, customer interactions, and business relationships.',
+      proficiency: 70,
+      experience: '1+ years',
+      icon: '👥',
+      color: 'from-indigo-500 to-purple-500',
+      features: [
+        'Lead Management',
+        'Contact Organization',
+        'Sales Pipeline',
+        'Workflow Automation',
+        'Reporting & Analytics',
+        'Email Integration'
+      ],
+      skills: [
+        'Lead Scoring',
+        'Pipeline Management',
+        'Custom Fields',
+        'Automation Rules',
+        'Report Generation',
+        'Data Import/Export'
+      ]
+    },
+    'hubspot': {
+      name: 'HubSpot',
+      category: 'Marketing',
+      description: 'Comprehensive inbound marketing, sales, and customer service platform with CRM capabilities.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🚀',
+      color: 'from-orange-500 to-red-500',
+      features: [
+        'Inbound Marketing',
+        'Lead Nurturing',
+        'Content Management',
+        'Social Media Tools',
+        'Email Marketing',
+        'Sales Automation'
+      ],
+      skills: [
+        'Landing Pages',
+        'Lead Flows',
+        'Email Sequences',
+        'Social Publishing',
+        'Contact Segmentation',
+        'Workflow Creation'
+      ]
+    },
+    'campaign-optimization': {
+      name: 'Campaign Optimization',
+      category: 'Marketing',
+      description: 'Strategic approach to improving marketing campaign performance through data analysis, testing, and continuous refinement.',
+      proficiency: 80,
+      experience: '2+ years',
+      icon: '📈',
+      color: 'from-green-500 to-blue-500',
+      features: [
+        'A/B Testing',
+        'Performance Analysis',
+        'Budget Optimization',
+        'Audience Targeting',
+        'Creative Testing',
+        'ROI Improvement'
+      ],
+      skills: [
+        'Statistical Analysis',
+        'Conversion Rate Optimization',
+        'Multi-variate Testing',
+        'Attribution Modeling',
+        'Budget Allocation',
+        'Performance Forecasting'
+      ]
+    },
+    'funnel-design': {
+      name: 'Funnel Design',
+      category: 'Marketing',
+      description: 'Creating optimized customer journey paths from awareness to conversion, maximizing conversion rates at each stage.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🎯',
+      color: 'from-purple-500 to-indigo-500',
+      features: [
+        'Customer Journey Mapping',
+        'Conversion Optimization',
+        'Landing Page Design',
+        'Lead Magnets',
+        'Email Sequences',
+        'Analytics Tracking'
+      ],
+      skills: [
+        'User Experience Design',
+        'Conversion Psychology',
+        'Page Optimization',
+        'Flow Analysis',
+        'Testing Strategies',
+        'Performance Metrics'
+      ]
+    },
+    'copywriting': {
+      name: 'Copywriting',
+      category: 'Marketing',
+      description: 'Creating compelling written content that persuades, informs, and drives action across various marketing channels.',
+      proficiency: 80,
+      experience: '2+ years',
+      icon: '✍️',
+      color: 'from-pink-500 to-rose-500',
+      features: [
+        'Persuasive Writing',
+        'Brand Voice Development',
+        'Content Strategy',
+        'A/B Testing Copy',
+        'Multi-channel Content',
+        'Conversion Optimization'
+      ],
+      skills: [
+        'Sales Copy',
+        'Email Marketing',
+        'Ad Copy',
+        'Landing Pages',
+        'Social Media Content',
+        'Blog Writing'
+      ]
+    },
+    'lead-generation': {
+      name: 'Lead Generation',
+      category: 'Marketing',
+      description: 'Systematic approach to identifying and attracting potential customers through various digital marketing strategies.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '🎣',
+      color: 'from-blue-500 to-purple-500',
+      features: [
+        'Lead Magnets',
+        'Landing Pages',
+        'Form Optimization',
+        'Lead Scoring',
+        'Nurture Campaigns',
+        'Conversion Tracking'
+      ],
+      skills: [
+        'Content Marketing',
+        'Social Media Lead Gen',
+        'Paid Advertising',
+        'Email Marketing',
+        'Webinar Marketing',
+        'Referral Programs'
+      ]
+    },
+    'cold-calling': {
+      name: 'Cold Calling',
+      category: 'Marketing',
+      description: 'Direct sales technique involving contacting potential customers who have not previously expressed interest in the product or service.',
+      proficiency: 70,
+      experience: '1+ years',
+      icon: '📞',
+      color: 'from-red-500 to-pink-500',
+      features: [
+        'Script Development',
+        'Objection Handling',
+        'Prospect Research',
+        'Call Planning',
+        'Follow-up Strategies',
+        'Performance Tracking'
+      ],
+      skills: [
+        'Communication Skills',
+        'Active Listening',
+        'Persuasion Techniques',
+        'Relationship Building',
+        'Time Management',
+        'CRM Integration'
+      ]
+    },
+    'deal-closing': {
+      name: 'Deal Closing',
+      category: 'Marketing',
+      description: 'Sales techniques and strategies for successfully converting prospects into customers and finalizing business transactions.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🤝',
+      color: 'from-green-500 to-emerald-500',
+      features: [
+        'Closing Techniques',
+        'Negotiation Skills',
+        'Objection Handling',
+        'Value Proposition',
+        'Contract Management',
+        'Follow-up Processes'
+      ],
+      skills: [
+        'Sales Psychology',
+        'Negotiation Tactics',
+        'Relationship Management',
+        'Proposal Writing',
+        'Price Negotiation',
+        'Customer Retention'
+      ]
+    },
+    'salesforce': {
+      name: 'Salesforce',
+      category: 'Marketing',
+      description: 'Cloud-based CRM platform for managing customer relationships, sales processes, and business operations.',
+      proficiency: 65,
+      experience: '6 months',
+      icon: '☁️',
+      color: 'from-blue-500 to-indigo-500',
+      features: [
+        'Contact Management',
+        'Opportunity Tracking',
+        'Sales Forecasting',
+        'Workflow Automation',
+        'Custom Reports',
+        'Integration Capabilities'
+      ],
+      skills: [
+        'Lead Management',
+        'Pipeline Tracking',
+        'Custom Objects',
+        'Process Builder',
+        'Dashboard Creation',
+        'Data Management'
+      ]
+    },
+    'semrush': {
+      name: 'Semrush',
+      category: 'Marketing',
+      description: 'All-in-one digital marketing toolkit for SEO, PPC, content marketing, and competitive research.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🔧',
+      color: 'from-orange-500 to-yellow-500',
+      features: [
+        'Keyword Research',
+        'Competitor Analysis',
+        'Site Audit',
+        'Backlink Analysis',
+        'Content Planning',
+        'Rank Tracking'
+      ],
+      skills: [
+        'SEO Analysis',
+        'PPC Research',
+        'Content Gap Analysis',
+        'Technical SEO',
+        'Link Building',
+        'Market Research'
+      ]
+    },
+    'n8n': {
+      name: 'n8n',
+      category: 'AI Agents & Automation',
+      description: 'Open-source workflow automation tool that connects different services and APIs to create powerful automated processes.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '🔗',
+      color: 'from-purple-500 to-pink-500',
+      features: [
+        'Visual Workflow Builder',
+        'API Integrations',
+        'Conditional Logic',
+        'Data Transformation',
+        'Scheduling',
+        'Error Handling'
+      ],
+      skills: [
+        'Workflow Design',
+        'API Connections',
+        'Data Mapping',
+        'Trigger Setup',
+        'Node Configuration',
+        'Debugging'
+      ]
+    },
+    'zapier': {
+      name: 'Zapier',
+      category: 'AI Agents & Automation',
+      description: 'Cloud-based automation platform that connects different apps and services to automate repetitive tasks.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '⚡',
+      color: 'from-orange-500 to-red-500',
+      features: [
+        'App Integrations',
+        'Multi-step Zaps',
+        'Filters & Conditions',
+        'Data Formatting',
+        'Webhooks',
+        'Team Collaboration'
+      ],
+      skills: [
+        'Zap Creation',
+        'Trigger Configuration',
+        'Action Setup',
+        'Data Mapping',
+        'Testing & Debugging',
+        'Workflow Optimization'
+      ]
+    },
+    'make': {
+      name: 'Make.com',
+      category: 'AI Agents & Automation',
+      description: 'Visual platform for creating, building, and automating workflows between apps and services without coding.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🎨',
+      color: 'from-blue-500 to-purple-500',
+      features: [
+        'Visual Scenario Builder',
+        'Real-time Execution',
+        'Error Handling',
+        'Data Stores',
+        'Webhooks',
+        'Advanced Functions'
+      ],
+      skills: [
+        'Scenario Design',
+        'Module Configuration',
+        'Data Processing',
+        'API Integration',
+        'Conditional Logic',
+        'Performance Optimization'
+      ]
+    },
+    'claude': {
+      name: 'Claude',
+      category: 'AI Agents & Automation',
+      description: 'Advanced AI assistant by Anthropic for natural language processing, analysis, and automated content generation.',
+      proficiency: 90,
+      experience: '1+ years',
+      icon: '🤖',
+      color: 'from-indigo-500 to-purple-500',
+      features: [
+        'Natural Language Processing',
+        'Content Generation',
+        'Code Analysis',
+        'Data Processing',
+        'Reasoning & Logic',
+        'Multi-format Output'
+      ],
+      skills: [
+        'Prompt Engineering',
+        'Content Creation',
+        'Data Analysis',
+        'Code Review',
+        'Research Assistance',
+        'Workflow Integration'
+      ]
+    },
+    'openai': {
+      name: 'OpenAI',
+      category: 'AI Agents & Automation',
+      description: 'AI platform providing powerful language models and APIs for building intelligent applications and automations.',
+      proficiency: 85,
+      experience: '1+ years',
+      icon: '🧠',
+      color: 'from-green-500 to-teal-500',
+      features: [
+        'GPT Models',
+        'API Integration',
+        'Fine-tuning',
+        'Embeddings',
+        'Image Generation',
+        'Code Generation'
+      ],
+      skills: [
+        'API Implementation',
+        'Prompt Design',
+        'Model Selection',
+        'Response Processing',
+        'Cost Optimization',
+        'Integration Development'
+      ]
+    },
+    'airtable': {
+      name: 'Airtable',
+      category: 'AI Agents & Automation',
+      description: 'Cloud collaboration platform that combines the simplicity of a spreadsheet with the power of a database.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '📋',
+      color: 'from-yellow-500 to-orange-500',
+      features: [
+        'Database Management',
+        'Custom Views',
+        'Automation Rules',
+        'Form Creation',
+        'API Access',
+        'Collaboration Tools'
+      ],
+      skills: [
+        'Base Design',
+        'Field Configuration',
+        'View Creation',
+        'Formula Writing',
+        'Automation Setup',
+        'Integration Development'
+      ]
+    },
+    'crm-triggers': {
+      name: 'CRM Triggers',
+      category: 'AI Agents & Automation',
+      description: 'Automated responses and actions triggered by specific events or conditions within customer relationship management systems.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🎯',
+      color: 'from-red-500 to-pink-500',
+      features: [
+        'Event-based Triggers',
+        'Conditional Logic',
+        'Multi-step Workflows',
+        'Data Synchronization',
+        'Notification Systems',
+        'Performance Tracking'
+      ],
+      skills: [
+        'Trigger Configuration',
+        'Workflow Design',
+        'Data Mapping',
+        'Condition Setup',
+        'Testing & Validation',
+        'Performance Monitoring'
+      ]
+    },
+    'email-bots': {
+      name: 'Email Bots',
+      category: 'AI Agents & Automation',
+      description: 'Automated email systems that can send, receive, and process emails based on predefined rules and AI logic.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '📨',
+      color: 'from-blue-500 to-cyan-500',
+      features: [
+        'Automated Responses',
+        'Email Parsing',
+        'Template Management',
+        'Scheduling',
+        'Personalization',
+        'Analytics Tracking'
+      ],
+      skills: [
+        'Email Automation',
+        'Template Design',
+        'Response Logic',
+        'Data Extraction',
+        'Integration Setup',
+        'Performance Analysis'
+      ]
+    },
+    'ai-workflows': {
+      name: 'AI Workflows',
+      category: 'AI Agents & Automation',
+      description: 'Intelligent automated processes that use AI to make decisions, process data, and execute complex business logic.',
+      proficiency: 85,
+      experience: '1+ years',
+      icon: '🔄',
+      color: 'from-purple-500 to-indigo-500',
+      features: [
+        'Intelligent Decision Making',
+        'Data Processing',
+        'Multi-step Automation',
+        'Learning Capabilities',
+        'Error Recovery',
+        'Performance Optimization'
+      ],
+      skills: [
+        'Workflow Architecture',
+        'AI Integration',
+        'Logic Design',
+        'Data Flow Management',
+        'Testing & Validation',
+        'Continuous Improvement'
+      ]
+    },
+    'html': {
+      name: 'HTML',
+      category: 'Web Development',
+      description: 'HyperText Markup Language - the standard markup language for creating web pages and web applications.',
+      proficiency: 90,
+      experience: '3+ years',
+      icon: '🌐',
+      color: 'from-orange-500 to-red-500',
+      features: [
+        'Semantic Markup',
+        'Accessibility',
+        'SEO Optimization',
+        'Form Creation',
+        'Media Integration',
+        'Cross-browser Compatibility'
+      ],
+      skills: [
+        'HTML5 Elements',
+        'Semantic Structure',
+        'Form Validation',
+        'Accessibility Standards',
+        'Meta Tags',
+        'Performance Optimization'
+      ]
+    },
+    'css': {
+      name: 'CSS',
+      category: 'Web Development',
+      description: 'Cascading Style Sheets - stylesheet language used for describing the presentation of HTML documents.',
+      proficiency: 85,
+      experience: '3+ years',
+      icon: '🎨',
+      color: 'from-blue-500 to-purple-500',
+      features: [
+        'Responsive Design',
+        'Flexbox & Grid',
+        'Animations',
+        'Custom Properties',
+        'Preprocessors',
+        'Modern CSS Features'
+      ],
+      skills: [
+        'Layout Design',
+        'Responsive Techniques',
+        'CSS Grid',
+        'Flexbox',
+        'Animations & Transitions',
+        'Performance Optimization'
+      ]
+    },
+    'react': {
+      name: 'React',
+      category: 'Web Development',
+      description: 'JavaScript library for building user interfaces, particularly single-page applications with component-based architecture.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '⚛️',
+      color: 'from-cyan-500 to-blue-500',
+      features: [
+        'Component Architecture',
+        'State Management',
+        'Hooks',
+        'Virtual DOM',
+        'JSX Syntax',
+        'Ecosystem Integration'
+      ],
+      skills: [
+        'Functional Components',
+        'React Hooks',
+        'State Management',
+        'Component Lifecycle',
+        'Performance Optimization',
+        'Testing'
+      ]
+    },
+    'python': {
+      name: 'Python',
+      category: 'Web Development',
+      description: 'High-level programming language known for its simplicity and versatility in web development, data analysis, and automation.',
+      proficiency: 80,
+      experience: '2+ years',
+      icon: '🐍',
+      color: 'from-green-500 to-yellow-500',
+      features: [
+        'Web Frameworks',
+        'Data Analysis',
+        'Automation Scripts',
+        'API Development',
+        'Database Integration',
+        'Machine Learning'
+      ],
+      skills: [
+        'Django/Flask',
+        'Data Manipulation',
+        'API Development',
+        'Automation',
+        'Database Operations',
+        'Package Management'
+      ]
+    },
+    'c': {
+      name: 'C',
+      category: 'Web Development',
+      description: 'General-purpose programming language that provides low-level access to memory and efficient performance.',
+      proficiency: 70,
+      experience: '1+ years',
+      icon: '⚙️',
+      color: 'from-gray-500 to-blue-500',
+      features: [
+        'System Programming',
+        'Memory Management',
+        'Performance Optimization',
+        'Hardware Interaction',
+        'Algorithm Implementation',
+        'Cross-platform Development'
+      ],
+      skills: [
+        'Pointer Management',
+        'Memory Allocation',
+        'Data Structures',
+        'Algorithm Design',
+        'System Calls',
+        'Debugging'
+      ]
+    },
+    'sql': {
+      name: 'SQL',
+      category: 'Web Development',
+      description: 'Structured Query Language for managing and manipulating relational databases.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '🗄️',
+      color: 'from-indigo-500 to-purple-500',
+      features: [
+        'Database Design',
+        'Query Optimization',
+        'Data Manipulation',
+        'Stored Procedures',
+        'Indexing',
+        'Performance Tuning'
+      ],
+      skills: [
+        'Complex Queries',
+        'Database Design',
+        'Performance Optimization',
+        'Data Analysis',
+        'Stored Procedures',
+        'Database Administration'
+      ]
+    },
+    'mongodb': {
+      name: 'MongoDB',
+      category: 'Web Development',
+      description: 'NoSQL document database that provides high performance, high availability, and easy scalability.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🍃',
+      color: 'from-green-500 to-teal-500',
+      features: [
+        'Document Storage',
+        'Flexible Schema',
+        'Horizontal Scaling',
+        'Aggregation Pipeline',
+        'Indexing',
+        'Replication'
+      ],
+      skills: [
+        'Document Modeling',
+        'Query Operations',
+        'Aggregation',
+        'Index Management',
+        'Performance Tuning',
+        'Data Migration'
+      ]
+    },
+    'firebase': {
+      name: 'Firebase',
+      category: 'Web Development',
+      description: 'Google\'s mobile and web application development platform providing backend services and tools.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '🔥',
+      color: 'from-yellow-500 to-orange-500',
+      features: [
+        'Real-time Database',
+        'Authentication',
+        'Cloud Functions',
+        'Hosting',
+        'Analytics',
+        'Cloud Messaging'
+      ],
+      skills: [
+        'Database Management',
+        'User Authentication',
+        'Cloud Functions',
+        'Real-time Updates',
+        'Analytics Integration',
+        'Deployment'
+      ]
+    },
+    'supabase': {
+      name: 'Supabase',
+      category: 'Web Development',
+      description: 'Open-source Firebase alternative providing database, authentication, and real-time subscriptions.',
+      proficiency: 85,
+      experience: '1+ years',
+      icon: '⚡',
+      color: 'from-green-500 to-blue-500',
+      features: [
+        'PostgreSQL Database',
+        'Real-time Subscriptions',
+        'Authentication',
+        'Row Level Security',
+        'Edge Functions',
+        'Storage'
+      ],
+      skills: [
+        'Database Design',
+        'Authentication Setup',
+        'Real-time Features',
+        'Security Configuration',
+        'API Development',
+        'Performance Optimization'
+      ]
+    },
+    'git': {
+      name: 'Git',
+      category: 'Web Development',
+      description: 'Distributed version control system for tracking changes in source code during software development.',
+      proficiency: 85,
+      experience: '3+ years',
+      icon: '📝',
+      color: 'from-red-500 to-orange-500',
+      features: [
+        'Version Control',
+        'Branching & Merging',
+        'Collaboration',
+        'History Tracking',
+        'Conflict Resolution',
+        'Remote Repositories'
+      ],
+      skills: [
+        'Branch Management',
+        'Merge Strategies',
+        'Conflict Resolution',
+        'Remote Operations',
+        'Workflow Management',
+        'Code Review'
+      ]
+    },
+    'github': {
+      name: 'GitHub',
+      category: 'Web Development',
+      description: 'Web-based platform for version control and collaboration using Git, with additional project management features.',
+      proficiency: 85,
+      experience: '3+ years',
+      icon: '🐙',
+      color: 'from-gray-700 to-gray-900',
+      features: [
+        'Repository Management',
+        'Pull Requests',
+        'Issue Tracking',
+        'Actions (CI/CD)',
+        'Project Boards',
+        'Collaboration Tools'
+      ],
+      skills: [
+        'Repository Management',
+        'Pull Request Workflow',
+        'Issue Management',
+        'CI/CD Setup',
+        'Code Review',
+        'Project Organization'
+      ]
+    },
+    'netlify': {
+      name: 'Netlify',
+      category: 'Web Development',
+      description: 'Cloud computing company offering hosting and serverless backend services for web applications.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '🌐',
+      color: 'from-teal-500 to-cyan-500',
+      features: [
+        'Static Site Hosting',
+        'Continuous Deployment',
+        'Serverless Functions',
+        'Form Handling',
+        'CDN',
+        'Domain Management'
+      ],
+      skills: [
+        'Deployment Configuration',
+        'Build Optimization',
+        'Domain Setup',
+        'Performance Monitoring',
+        'Function Development',
+        'Form Integration'
+      ]
+    },
+    'power-bi': {
+      name: 'Power BI',
+      category: 'Business Analytics',
+      description: 'Microsoft\'s business analytics tool for visualizing data and sharing insights across organizations.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '📊',
+      color: 'from-yellow-500 to-orange-500',
+      features: [
+        'Data Visualization',
+        'Interactive Dashboards',
+        'Data Modeling',
+        'Real-time Analytics',
+        'Collaboration',
+        'Mobile Access'
+      ],
+      skills: [
+        'Dashboard Creation',
+        'Data Modeling',
+        'DAX Formulas',
+        'Report Design',
+        'Data Connections',
+        'Performance Optimization'
+      ]
+    },
+    'tableau': {
+      name: 'Tableau',
+      category: 'Business Analytics',
+      description: 'Data visualization software that helps people see and understand their data through interactive dashboards.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '📈',
+      color: 'from-blue-500 to-indigo-500',
+      features: [
+        'Data Visualization',
+        'Interactive Dashboards',
+        'Data Blending',
+        'Statistical Analysis',
+        'Mapping',
+        'Collaboration'
+      ],
+      skills: [
+        'Visualization Design',
+        'Data Preparation',
+        'Calculated Fields',
+        'Dashboard Optimization',
+        'Story Creation',
+        'Performance Tuning'
+      ]
+    },
+    'excel': {
+      name: 'Excel',
+      category: 'Business Analytics',
+      description: 'Microsoft\'s spreadsheet application with powerful data analysis, visualization, and automation capabilities.',
+      proficiency: 90,
+      experience: '5+ years',
+      icon: '📋',
+      color: 'from-green-500 to-emerald-500',
+      features: [
+        'Data Analysis',
+        'Pivot Tables',
+        'Advanced Formulas',
+        'Macros & VBA',
+        'Data Visualization',
+        'Automation'
+      ],
+      skills: [
+        'Advanced Formulas',
+        'Pivot Tables',
+        'Data Modeling',
+        'VBA Programming',
+        'Chart Creation',
+        'Data Validation'
+      ]
+    },
+    'spss': {
+      name: 'SPSS',
+      category: 'Business Analytics',
+      description: 'Statistical software package used for interactive statistical analysis, data mining, and predictive analytics.',
+      proficiency: 70,
+      experience: '1+ years',
+      icon: '📊',
+      color: 'from-purple-500 to-pink-500',
+      features: [
+        'Statistical Analysis',
+        'Data Mining',
+        'Predictive Analytics',
+        'Survey Research',
+        'Advanced Statistics',
+        'Report Generation'
+      ],
+      skills: [
+        'Descriptive Statistics',
+        'Hypothesis Testing',
+        'Regression Analysis',
+        'Factor Analysis',
+        'Data Preparation',
+        'Report Writing'
+      ]
+    },
+    'r': {
+      name: 'R',
+      category: 'Business Analytics',
+      description: 'Programming language and environment for statistical computing and graphics.',
+      proficiency: 65,
+      experience: '6 months',
+      icon: '📈',
+      color: 'from-blue-500 to-purple-500',
+      features: [
+        'Statistical Computing',
+        'Data Visualization',
+        'Machine Learning',
+        'Data Manipulation',
+        'Package Ecosystem',
+        'Reproducible Research'
+      ],
+      skills: [
+        'Data Analysis',
+        'Statistical Modeling',
+        'Visualization (ggplot2)',
+        'Data Manipulation (dplyr)',
+        'Package Development',
+        'Report Generation'
+      ]
+    },
+    'pandas': {
+      name: 'Pandas',
+      category: 'Business Analytics',
+      description: 'Python library providing data structures and data analysis tools for handling structured data.',
+      proficiency: 80,
+      experience: '1+ years',
+      icon: '🐼',
+      color: 'from-green-500 to-blue-500',
+      features: [
+        'Data Manipulation',
+        'Data Cleaning',
+        'Data Analysis',
+        'File I/O',
+        'Time Series',
+        'Grouping Operations'
+      ],
+      skills: [
+        'DataFrame Operations',
+        'Data Cleaning',
+        'Merging & Joining',
+        'Aggregation',
+        'Time Series Analysis',
+        'Data Export/Import'
+      ]
+    },
+    'matplotlib': {
+      name: 'Matplotlib',
+      category: 'Business Analytics',
+      description: 'Python plotting library for creating static, animated, and interactive visualizations.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '📊',
+      color: 'from-red-500 to-orange-500',
+      features: [
+        'Static Plots',
+        'Interactive Visualizations',
+        'Multiple Plot Types',
+        'Customization',
+        'Publication Quality',
+        'Animation Support'
+      ],
+      skills: [
+        'Plot Creation',
+        'Customization',
+        'Subplots',
+        'Styling',
+        'Export Formats',
+        'Interactive Features'
+      ]
+    },
+    'seaborn': {
+      name: 'Seaborn',
+      category: 'Business Analytics',
+      description: 'Python data visualization library based on matplotlib, providing high-level statistical graphics.',
+      proficiency: 75,
+      experience: '1+ years',
+      icon: '🌊',
+      color: 'from-blue-500 to-teal-500',
+      features: [
+        'Statistical Plots',
+        'Beautiful Defaults',
+        'Dataset Integration',
+        'Categorical Data',
+        'Regression Plots',
+        'Matrix Plots'
+      ],
+      skills: [
+        'Statistical Visualization',
+        'Distribution Plots',
+        'Correlation Analysis',
+        'Categorical Plotting',
+        'Regression Visualization',
+        'Style Customization'
+      ]
+    },
+    'dashboarding': {
+      name: 'Dashboarding',
+      category: 'Business Analytics',
+      description: 'Creating interactive visual displays of key performance indicators and metrics for business monitoring.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '📺',
+      color: 'from-purple-500 to-indigo-500',
+      features: [
+        'KPI Visualization',
+        'Real-time Updates',
+        'Interactive Elements',
+        'Multi-source Data',
+        'Responsive Design',
+        'User Access Control'
+      ],
+      skills: [
+        'Dashboard Design',
+        'Data Integration',
+        'Visualization Selection',
+        'User Experience',
+        'Performance Optimization',
+        'Stakeholder Communication'
+      ]
+    },
+    'predictive-analytics': {
+      name: 'Predictive Analytics',
+      category: 'Business Analytics',
+      description: 'Using statistical algorithms and machine learning techniques to identify future outcomes based on historical data.',
+      proficiency: 70,
+      experience: '1+ years',
+      icon: '🔮',
+      color: 'from-indigo-500 to-purple-500',
+      features: [
+        'Machine Learning Models',
+        'Statistical Forecasting',
+        'Pattern Recognition',
+        'Risk Assessment',
+        'Trend Analysis',
+        'Model Validation'
+      ],
+      skills: [
+        'Model Development',
+        'Feature Engineering',
+        'Model Evaluation',
+        'Forecasting',
+        'Risk Modeling',
+        'Business Application'
+      ]
+    },
+    'data-cleaning': {
+      name: 'SQL Data Cleaning',
+      category: 'Business Analytics',
+      description: 'Process of detecting and correcting corrupt or inaccurate records from databases using SQL techniques.',
+      proficiency: 85,
+      experience: '2+ years',
+      icon: '🧹',
+      color: 'from-green-500 to-blue-500',
+      features: [
+        'Data Quality Assessment',
+        'Duplicate Removal',
+        'Missing Value Handling',
+        'Data Standardization',
+        'Outlier Detection',
+        'Data Validation'
+      ],
+      skills: [
+        'SQL Queries',
+        'Data Profiling',
+        'Pattern Matching',
+        'Data Transformation',
+        'Quality Metrics',
+        'Automation Scripts'
+      ]
+    },
+    'lovable': {
+      name: 'Lovable AI + vO',
+      category: 'Vibe Coding',
+      description: 'AI-powered development platform that enables rapid prototyping and full-stack application development through natural language.',
+      proficiency: 90,
+      experience: '6 months',
+      icon: '💖',
+      color: 'from-pink-500 to-rose-500',
+      features: [
+        'AI-Powered Development',
+        'Natural Language Coding',
+        'Rapid Prototyping',
+        'Full-Stack Generation',
+        'Real-time Collaboration',
+        'Instant Deployment'
+      ],
+      skills: [
+        'Prompt Engineering',
+        'Rapid Development',
+        'AI Collaboration',
+        'Code Generation',
+        'Design Systems',
+        'Deployment Automation'
+      ]
+    },
+    'bolt': {
+      name: 'Bolt',
+      category: 'Vibe Coding',
+      description: 'AI-powered development environment for building web applications with natural language instructions.',
+      proficiency: 85,
+      experience: '3 months',
+      icon: '⚡',
+      color: 'from-yellow-500 to-orange-500',
+      features: [
+        'AI Code Generation',
+        'Interactive Development',
+        'Real-time Preview',
+        'Component Library',
+        'Version Control',
+        'Collaborative Editing'
+      ],
+      skills: [
+        'AI-Assisted Coding',
+        'Component Development',
+        'Rapid Iteration',
+        'Code Optimization',
+        'Design Implementation',
+        'Testing & Debugging'
+      ]
+    },
+    'gpt-4': {
+      name: 'GPT-4',
+      category: 'Vibe Coding',
+      description: 'Advanced language model by OpenAI for code generation, problem-solving, and creative development tasks.',
+      proficiency: 90,
+      experience: '1+ years',
+      icon: '🧠',
+      color: 'from-green-500 to-teal-500',
+      features: [
+        'Code Generation',
+        'Problem Solving',
+        'Code Review',
+        'Documentation',
+        'Debugging Assistance',
+        'Architecture Planning'
+      ],
+      skills: [
+        'Prompt Engineering',
+        'Code Generation',
+        'Problem Decomposition',
+        'Code Review',
+        'Documentation Writing',
+        'Technical Communication'
+      ]
+    },
+    'hugging-face': {
+      name: 'Hugging Face',
+      category: 'Vibe Coding',
+      description: 'Platform providing pre-trained models and tools for natural language processing and machine learning.',
+      proficiency: 70,
+      experience: '6 months',
+      icon: '🤗',
+      color: 'from-orange-500 to-red-500',
+      features: [
+        'Pre-trained Models',
+        'Model Fine-tuning',
+        'Transformers Library',
+        'Dataset Hub',
+        'Model Deployment',
+        'Community Collaboration'
+      ],
+      skills: [
+        'Model Integration',
+        'Fine-tuning',
+        'API Usage',
+        'Model Evaluation',
+        'Deployment',
+        'Community Contribution'
+      ]
+    }
+  };
+
+  const tool = toolsData[toolName || ''];
 
   if (!tool) {
     return (
       <div className="min-h-screen pt-16 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Tool Not Found</h1>
-          <p className="text-muted-foreground mb-8">The tool you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold mb-4">Tool not found</h1>
           <Link to="/skills">
             <Button>
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -1003,229 +1289,217 @@ export default function ToolDetail() {
   return (
     <div className="min-h-screen pt-16">
       <div className="container mx-auto px-4 py-20">
-        {/* Back Button */}
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
           <Link to="/skills">
-            <Button variant="outline" className="mb-4">
+            <Button variant="ghost" className="mb-4">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Skills
             </Button>
           </Link>
-        </motion.div>
-
-        {/* Tool Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="w-32 h-32 mx-auto mb-6 bg-white rounded-2xl shadow-lg flex items-center justify-center p-4">
-            {tool.logo ? (
-              <img 
-                src={tool.logo} 
-                alt={`${tool.title} logo`}
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const fallback = target.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-              />
-            ) : null}
-            <div className="w-full h-full bg-primary/10 rounded-xl flex items-center justify-center" style={{ display: 'none' }}>
-              <span className="text-3xl font-bold text-primary">
-                {tool.title.charAt(0)}
-              </span>
+          
+          <div className="flex items-center space-x-4 mb-6">
+            <div className={`p-4 bg-gradient-to-r ${tool.color} rounded-xl text-white text-3xl`}>
+              {tool.icon}
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold">{tool.name}</h1>
+              <Badge variant="secondary" className="mt-2">{tool.category}</Badge>
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{tool.title}</h1>
-          <Badge variant="secondary" className="mb-4">{tool.category}</Badge>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {tool.description}
-          </p>
         </motion.div>
 
-        {/* Stats Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
-        >
-          <Card className="text-center">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center mb-2">
-                <Star className="h-5 w-5 text-yellow-500 mr-2" />
-                <span className="text-2xl font-bold">{tool.proficiency}%</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Proficiency</p>
-              <Progress value={tool.proficiency} className="mt-2" />
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center mb-2">
-                <Calendar className="h-5 w-5 text-blue-500 mr-2" />
-                <span className="text-2xl font-bold">{tool.experience}</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Experience</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center mb-2">
-                <TrendingUp className="h-5 w-5 text-green-500 mr-2" />
-                <span className="text-2xl font-bold">{tool.projects}+</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Projects</p>
-            </CardContent>
-          </Card>
-        </motion.div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>About {tool.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {tool.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Detailed Description */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>About {tool.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  {tool.description_long}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Key Features</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-3">
-                  {tool.features.map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg">
-                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Use Cases & Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="space-y-6"
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>How I Use {tool.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {tool.use_cases.map((useCase, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-primary">{index + 1}</span>
+            {/* Features */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Zap className="mr-2 h-5 w-5" />
+                    Key Features
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {tool.features?.map((feature: string, index: number) => (
+                      <div key={index} className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
+                        <div className="w-2 h-2 bg-primary rounded-full" />
+                        <span className="text-sm">{feature}</span>
                       </div>
-                      <span className="text-sm text-muted-foreground">{useCase}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Learn More</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Explore {tool.title} and discover how it can enhance your workflow and productivity.
-                </p>
-                {tool.website !== '#' && (
-                  <Button asChild className="w-full">
-                    <a href={tool.website} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Visit Official Website
-                    </a>
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
+            {/* Skills */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    Technical Skills
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {tool.skills?.map((skill: string, index: number) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-        {/* Related Tools */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-20"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Related Tools in {tool.category}
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {Object.entries(tools)
-              .filter(([key, t]) => t.category === tool.category && key !== toolName)
-              .slice(0, 3)
-              .map(([key, relatedTool]) => (
-                <Link key={key} to={`/tools/${key}`}>
-                  <Card className="hover:shadow-card transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-                    <CardContent className="p-6 text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-white rounded-xl shadow-md flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                        {relatedTool.logo ? (
-                          <img 
-                            src={relatedTool.logo} 
-                            alt={`${relatedTool.title} logo`}
-                            className="w-full h-full object-contain"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              const fallback = target.nextElementSibling as HTMLElement;
-                              if (fallback) fallback.style.display = 'flex';
-                            }}
-                          />
-                        ) : null}
-                        <div className="w-full h-full bg-primary/10 rounded-lg flex items-center justify-center" style={{ display: 'none' }}>
-                          <span className="text-lg font-bold text-primary">
-                            {relatedTool.title.charAt(0)}
-                          </span>
+            {/* Certifications */}
+            {tool.certifications && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Award className="mr-2 h-5 w-5" />
+                      Certifications
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {tool.certifications.map((cert: string, index: number) => (
+                        <div key={index} className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
+                          <div className="w-2 h-2 bg-green-500 rounded-full" />
+                          <span className="text-sm">{cert}</span>
                         </div>
-                      </div>
-                      <h3 className="font-semibold mb-2">{relatedTool.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {relatedTool.description.slice(0, 80)}...
-                      </p>
-                      <div className="mt-3">
-                        <Badge variant="outline" className="text-xs">
-                          {relatedTool.proficiency}% Proficiency
-                        </Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
           </div>
-        </motion.div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Proficiency */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <TrendingUp className="mr-2 h-5 w-5" />
+                    Proficiency
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Skill Level</span>
+                      <span className="text-sm text-muted-foreground">{tool.proficiency}%</span>
+                    </div>
+                    <Progress value={tool.proficiency} className="h-2" />
+                    <div className="text-xs text-muted-foreground">
+                      {tool.proficiency >= 90 ? 'Expert' : 
+                       tool.proficiency >= 80 ? 'Advanced' : 
+                       tool.proficiency >= 70 ? 'Intermediate' : 'Beginner'}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Experience */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Users className="mr-2 h-5 w-5" />
+                    Experience
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary mb-2">
+                      {tool.experience}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Hands-on Experience
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Quick Actions */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button className="w-full" asChild>
+                    <Link to="/projects">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View Related Work
+                    </Link>
+                  </Button>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link to="/contact">
+                      <Mail className="mr-2 h-4 w-4" />
+                      Discuss This Skill
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );
